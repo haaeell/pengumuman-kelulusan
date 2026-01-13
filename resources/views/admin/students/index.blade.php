@@ -1,432 +1,552 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid px-4">
+    <div class="space-y-6">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- HEADER -->
+        <div class="flex justify-between items-center">
             <div>
-                <h4 class="fw-bold mb-0">Data Siswa</h4>
-                <small class="text-muted">Manajemen data siswa & kelulusan</small>
+                <h2 class="text-xl font-bold">Data Siswa</h2>
+                <p class="text-sm text-gray-500">Manajemen data siswa & kelulusan</p>
             </div>
 
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#importModal">
-                    <i class="bi bi-file-earmark-excel me-1"></i> Import Excel
+            <div class="flex gap-2">
+                <button onclick="openModal('importModal')"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-green-600 text-green-600 hover:bg-green-50">
+                    <i class="fa-solid fa-file-excel"></i>
+                    <span>Import Excel</span>
+                </button>
+                <button onclick="resetData()"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-red-600 text-red-600 hover:bg-red-50">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Reset Data</span>
                 </button>
 
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                    <i class="bi bi-plus-circle me-1"></i> Tambah Siswa
+                <form id="reset-form" method="POST" action="{{ route('students.reset') }}">
+                    @csrf
+                    @method('DELETE')
+                </form>
+
+                <button onclick="openModal('addModal')"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Tambah Siswa</span>
                 </button>
+
             </div>
         </div>
-        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true"
-            data-bs-backdrop="static" data-bs-keyboard="false">
 
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content border-0 shadow-lg">
+        <!-- STAT CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-                    <form method="POST" action="{{ route('students.import') }}" enctype="multipart/form-data">
-                        @csrf
-
-                        {{-- HEADER --}}
-                        <div class="modal-header">
-                            <h5 class="modal-title fw-bold" id="importModalLabel">
-                                <i class="bi bi-file-earmark-excel text-success me-1"></i>
-                                Import Data Siswa
-                            </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        {{-- BODY --}}
-                        <div class="modal-body">
-
-                            {{-- STEP 1 --}}
-                            <div class="border rounded p-3 mb-4 bg-light">
-                                <div class="d-flex align-items-start gap-3">
-                                    <i class="bi bi-download fs-4 text-success"></i>
-                                    <div>
-                                        <h6 class="fw-semibold mb-1">Langkah 1 — Download Template</h6>
-                                        <p class="mb-2 text-muted small">
-                                            Gunakan template resmi agar format data sesuai sistem.
-                                        </p>
-                                        <a href="{{ route('students.template') }}" class="btn btn-sm btn-success">
-                                            <i class="bi bi-file-earmark-arrow-down me-1"></i>
-                                            Download Template Excel
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- STEP 2 --}}
-                            <div>
-                                <h6 class="fw-semibold mb-2">Langkah 2 — Upload File Excel</h6>
-
-                                <div class="border rounded p-4 text-center bg-white">
-                                    <i class="bi bi-cloud-arrow-up fs-1 text-muted"></i>
-
-                                    <p class="mt-2 mb-1 fw-semibold">
-                                        Pilih file Excel
-                                    </p>
-
-                                    <p class="text-muted small mb-3">
-                                        Format yang didukung: <b>.xlsx</b>, <b>.xls</b>
-                                    </p>
-
-                                    <input type="file" name="file" class="form-control" accept=".xlsx,.xls" required>
-
-                                    <small class="text-muted d-block mt-2">
-                                        Kolom wajib: <b>NIS, Nama, Kelas, Nilai Akhir</b>
-                                    </small>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        {{-- FOOTER --}}
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Batal
-                            </button>
-
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-upload me-1"></i>
-                                Import Data
-                            </button>
-                        </div>
-
-                    </form>
+            <!-- Jumlah Siswa -->
+            <div class="bg-blue-50 border border-blue-600 rounded-xl p-5 flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">Jumlah Siswa</p>
+                    <h3 class="text-2xl font-bold">{{ $students->count() }}</h3>
                 </div>
+                <i class="fa-solid fa-users text-3xl text-blue-600"></i>
             </div>
-        </div>
 
-        <div class="row justify-content-center g-3 mb-4">
-            <div class="col-8">
-                <div class="row">
-
-                    {{-- Jumlah Siswa --}}
-                    <div class="col-md-4">
-                        <div class="card shadow-sm h-100"
-                            style="background-color: #e5f3ff; border: 2px solid #0068e6; color: #111;">
-                            <div class="card-body d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">Jumlah Siswa</h6>
-                                    <h3 class="fw-bold">{{ $students->count() }}</h3>
-                                </div>
-                                <i class="bi bi-people-fill fs-1" style="color:#0068e6; opacity:0.8;"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Eligible --}}
-                    <div class="col-md-4">
-                        <div class="card shadow-sm h-100"
-                            style="background-color: #d1fae5; border: 2px solid #16a34a; color: #111;">
-                            <div class="card-body d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">Eligible</h6>
-                                    <h3 class="fw-bold">{{ $students->where('is_eligible', 1)->count() }}</h3>
-                                </div>
-                                <i class="bi bi-check-circle-fill fs-1" style="color:#16a34a; opacity:0.8;"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Tidak Eligible --}}
-                    <div class="col-md-4">
-                        <div class="card shadow-sm h-100"
-                            style="background-color: #ffe4e6; border: 2px solid #dc2626; color: #111;">
-                            <div class="card-body d-flex align-items-center justify-content-between">
-                                <div>
-                                    <h6 class="fw-semibold mb-1">Tidak Eligible</h6>
-                                    <h3 class="fw-bold">{{ $students->where('is_eligible', 0)->count() }}</h3>
-                                </div>
-                                <i class="bi bi-x-circle-fill fs-1" style="color:#dc2626; opacity:0.8;"></i>
-                            </div>
-                        </div>
-                    </div>
-
+            <!-- Eligible -->
+            <div class="bg-green-50 border border-green-600 rounded-xl p-5 flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">Eligible</p>
+                    <h3 class="text-2xl font-bold">{{ $students->where('is_eligible', 1)->count() }}</h3>
                 </div>
+                <i class="fa-solid fa-check-circle text-3xl text-green-600"></i>
             </div>
-        </div>
 
-
-
-        {{-- CARD TABLE --}}
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-
-                <div class="table-responsive">
-                    <table id="studentsTable" class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>NIS</th>
-                                <th>Nama</th>
-                                <th>Kelas</th>
-                                <th>Nilai</th>
-                                <th>Status</th>
-                                <th class="text-center" width="150">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($students as $s)
-                                <tr>
-                                    <td>{{ $s->nis }}</td>
-                                    <td class="fw-semibold">{{ $s->nama }}</td>
-                                    <td>{{ $s->kelas }}</td>
-                                    <td>{{ $s->final_score }}</td>
-                                    <td>
-                                        @if ($s->is_eligible)
-                                            <span class="badge bg-success-subtle text-success">
-                                                ELIGIBLE
-                                            </span>
-                                        @else
-                                            <span class="badge bg-danger-subtle text-danger">
-                                                TIDAK
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $s->id }}">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-
-                                        <button class="btn btn-sm btn-danger" onclick="hapus({{ $s->id }})">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-
-                                        <form id="hapus-{{ $s->id }}"
-                                            action="{{ route('students.destroy', $s->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
-                                </tr>
-
-                                {{-- MODAL EDIT --}}
-                                <div class="modal fade" id="editModal{{ $s->id }}">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <form method="POST" action="{{ route('students.update', $s->id) }}">
-                                            @csrf
-                                            @method('PUT')
-
-                                            <div class="modal-content border-0 shadow">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title fw-bold">Edit Siswa</h5>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                    <!-- NIS -->
-                                                    <div class="mb-3">
-                                                        <label class="form-label">NIS</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-card-text"></i></span>
-                                                            <input type="text" class="form-control" name="nis"
-                                                                value="{{ $s->nis }}" placeholder="Masukkan NIS">
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Nama -->
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Nama</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-person"></i></span>
-                                                            <input type="text" class="form-control" name="nama"
-                                                                value="{{ $s->nama }}" placeholder="Masukkan Nama">
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Kelas -->
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Kelas</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-journal-bookmark"></i></span>
-                                                            <input type="text" class="form-control" name="kelas"
-                                                                value="{{ $s->kelas }}" placeholder="Masukkan Kelas">
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Nilai Akhir -->
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Nilai Akhir</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text"><i
-                                                                    class="bi bi-calculator"></i></span>
-                                                            <input type="number" step="0.01" class="form-control"
-                                                                name="final_score" value="{{ $s->final_score }}"
-                                                                placeholder="Masukkan Nilai Akhir">
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Status Kelulusan -->
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Status Kelulusan</label>
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="is_eligible" value="1"
-                                                                {{ $s->is_eligible ? 'checked' : '' }}>
-                                                            <label class="form-check-label">Eligible / Lulus</label>
-                                                        </div>
-                                                        <small class="text-muted">
-                                                            Jika tidak dicentang, status otomatis <b>Tidak Eligible</b>
-                                                        </small>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Batal</button>
-                                                    <button class="btn btn-primary">Update</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">
-                                        Data siswa belum tersedia
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+            <!-- Cadangan -->
+            <div class="bg-yellow-50 border border-yellow-600 rounded-xl p-5 flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">Cadangan</p>
+                    <h3 class="text-2xl font-bold">
+                        {{ $students->whereNotIn('information', ['ELIGIBLE', 'TIDAK ELIGIBLE'])->count() }}
+                    </h3>
                 </div>
-
+                <i class="fa-solid fa-question-circle text-3xl text-yellow-600"></i>
             </div>
+
+            <!-- Tidak Eligible -->
+            <div class="bg-red-50 border border-red-600 rounded-xl p-5 flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">Tidak Eligible</p>
+                    <h3 class="text-2xl font-bold">{{ $students->where('is_eligible', 0)->count() }}</h3>
+                </div>
+                <i class="fa-solid fa-xmark-circle text-3xl text-red-600"></i>
+            </div>
+
         </div>
+        <!-- TABLE -->
+        <div class="bg-white rounded-xl shadow overflow-hidden p-5">
+            <table class="w-full text-sm" id="studentsTable">
+                <thead class="bg-gray-100 text-left">
+                    <tr>
+                        <th class="px-4 py-3">No</th>
+                        <th class="px-4 py-3">NIS</th>
+                        <th class="px-4 py-3">Nama</th>
+                        <th class="px-4 py-3">Kelas</th>
+                        <th class="px-4 py-3 text-nowrap">Total Nilai</th>
+                        <th class="px-4 py-3 text-nowrap">Rata Rata</th>
+                        <th class="px-4 py-3">Ranking</th>
+                        <th class="px-4 py-3">Keterangan</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($students as $s)
+                        <tr class="border-t hover:bg-gray-50">
+                            <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                            <td class="px-4 py-3">{{ $s->nis }}</td>
+                            <td class="px-4 py-3 font-semibold">{{ $s->nama }}</td>
+                            <td class="px-4 py-3">{{ $s->kelas }}</td>
+
+                            <td class="px-4 py-3">{{ $s->total_score }}</td>
+                            <td class="px-4 py-3">{{ number_format($s->average_score, 2) }}</td>
+                            <td class="px-4 py-3">{{ $s->ranking }}</td>
+
+                            <!-- KETERANGAN -->
+                            <td class="px-4 py-3">
+                                @if ($s->information == 'ELIGIBLE')
+                                    <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">
+                                        ELIGIBLE
+                                    </span>
+                                @elseif($s->information == 'TIDAK ELIGIBLE')
+                                    <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">
+                                        TIDAK ELIGIBLE
+                                    </span>
+                                @else
+                                    <span class="px-2 py-1 rounded-full text-xs text-nowrap bg-yellow-100 text-yellow-700">
+                                        {{ $s->information }}
+                                    </span>
+                                @endif
+                            </td>
+
+                            <!-- STATUS SISWA -->
+                            <td class="px-4 py-3">
+                                @if ($s->information != 'TIDAK ELIGIBLE')
+                                    @if ($s->status === 'diterima')
+                                        <span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">
+                                            DITERIMA
+                                        </span>
+                                    @elseif($s->status === 'ditolak')
+                                        <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">
+                                            DITOLAK
+                                        </span>
+                                    @else
+                                        <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">
+                                            PENDING
+                                        </span>
+                                    @endif
+                                @else
+                                    <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-center space-x-1 flex">
+                                <button onclick="openModal('edit{{ $s->id }}')"
+                                    class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-yellow-100 text-yellow-600 hover:bg-yellow-200"
+                                    title="Edit">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+
+                                <button onclick="hapus({{ $s->id }})"
+                                    class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-red-100 text-red-600 hover:bg-red-200"
+                                    title="Hapus">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+
+                                <form id="hapus-{{ $s->id }}" method="POST"
+                                    action="{{ route('students.destroy', $s->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-    {{-- MODAL TAMBAH --}}
-    <div class="modal fade" id="addModal">
-        <div class="modal-dialog">
-            <form method="POST" action="{{ route('students.store') }}">
+    <!-- MODAL TAMBAH -->
+    <div id="addModal" class="modal">
+        <form method="POST" action="{{ route('students.store') }}" class="modal-box">
+            @csrf
+            <h3 class="font-bold mb-4">Tambah Siswa</h3>
+
+            <div class="space-y-3">
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-id-card text-gray-500"></i>
+                        NIS / Username
+                    </label>
+                    <input name="nis" class="input" placeholder="Masukkan NIS / Username" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-user text-gray-500"></i>
+                        Nama Lengkap
+                    </label>
+                    <input name="nama" class="input" placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-school text-gray-500"></i>
+                        Kelas
+                    </label>
+                    <input name="kelas" class="input" placeholder="Contoh: XII-2" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-square-poll-horizontal text-gray-500"></i>
+                        Total Nilai
+                    </label>
+                    <input name="total_score" class="input" type="number" step="0.01"
+                        placeholder="Total nilai siswa" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-chart-line text-gray-500"></i>
+                        Rata-rata Nilai
+                    </label>
+                    <input name="average_score" class="input" type="number" step="0.01"
+                        placeholder="Nilai rata-rata" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-ranking-star text-gray-500"></i>
+                        Ranking
+                    </label>
+                    <input name="ranking" class="input" type="number" placeholder="Peringkat siswa" required>
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-circle-info text-gray-500"></i>
+                        Keterangan
+                    </label>
+                    <input name="information" class="input" type="text" placeholder="Keterangan tambahan" required>
+                </div>
+
+            </div>
+
+
+            <div class="flex justify-end gap-2 mt-4">
+                <button type="button" onclick="closeModal('addModal')" class="btn-secondary">Batal</button>
+                <button class="btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- MODAL IMPORT EXCEL -->
+    <div id="importModal" class="modal">
+        <form method="POST" action="{{ route('students.import') }}" enctype="multipart/form-data"
+            class="modal-box w-full max-w-5xl">
+            @csrf
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-file-excel text-green-600"></i>
+                    Import Data Siswa
+                </h3>
+
+                <button type="button" onclick="closeModal('importModal')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- BODY -->
+
+            <!-- STEP 1 -->
+            <div class="border rounded-lg p-4 mb-4 bg-green-50">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-download text-green-600 text-2xl"></i>
+                    <div>
+                        <h6 class="font-semibold mb-1">
+                            Langkah 1 — Download Template
+                        </h6>
+                        <p class="text-sm text-gray-600 mb-2">
+                            Gunakan template resmi agar format data sesuai sistem.
+                        </p>
+
+                        <a href="{{ route('students.template') }}"
+                            class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-green-600 text-white text-sm hover:bg-green-700">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                            Download Template Excel
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div>
+                <h6 class="font-semibold mb-2">
+                    Langkah 2 — Upload File Excel
+                </h6>
+
+                <div class="border rounded-lg p-6 text-center bg-white">
+                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-400"></i>
+
+                    <p class="mt-3 mb-1 font-semibold">
+                        Pilih file Excel
+                    </p>
+
+                    <p class="text-sm text-gray-500 mb-3">
+                        Format yang didukung: <b>.xlsx</b>, <b>.xls</b>
+                    </p>
+
+                    <input type="file" name="file" accept=".xlsx,.xls" required class="input">
+
+                    <small class="text-gray-500 block mt-2">
+                        Kolom wajib:
+                        <b>NIS, Nama, Kelas, Nilai Akhir</b>
+                    </small>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="flex justify-end gap-2 mt-6 border-t pt-4">
+                <button type="button" onclick="closeModal('importModal')" class="btn-secondary">
+                    Batal
+                </button>
+
+                <button type="submit" id="btnImport"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700">
+
+                    <svg id="importSpinner" class="hidden w-5 h-5 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4l3-3-3-3v4a12 12 0 00-12 12h4z">
+                        </path>
+                    </svg>
+
+                    <span id="importText">Import Data</span>
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+
+    @foreach ($students as $s)
+        <div id="edit{{ $s->id }}" class="modal">
+            <form method="POST" action="{{ route('students.update', $s->id) }}" class="modal-box">
                 @csrf
+                @method('PUT')
 
-                <div class="modal-content border-0 shadow">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold">Tambah Siswa</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h3 class="font-bold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-pen text-yellow-500"></i>
+                    Edit Siswa
+                </h3>
+
+                <div class="space-y-3">
+
+                    <!-- NIS -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-id-card text-gray-500"></i>
+                            NIS
+                        </label>
+                        <input name="nis" class="input" type="text" value="{{ $s->nis }}"
+                            placeholder="NIS" required>
                     </div>
 
-                    <div class="modal-body">
-                        <!-- NIS -->
-                        <div class="mb-3">
-                            <label class="form-label">NIS</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="bi bi-card-text"></i>
-                                </span>
-                                <input type="text" class="form-control" name="nis" placeholder="Masukkan NIS">
-                            </div>
-                        </div>
-
-                        <!-- Nama -->
-                        <div class="mb-3">
-                            <label class="form-label">Nama</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="bi bi-person"></i>
-                                </span>
-                                <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama">
-                            </div>
-                        </div>
-
-                        <!-- Kelas -->
-                        <div class="mb-3">
-                            <label class="form-label">Kelas</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="bi bi-journal-bookmark"></i>
-                                </span>
-                                <input type="text" class="form-control" name="kelas" placeholder="Masukkan Kelas">
-                            </div>
-                        </div>
-
-                        <!-- Nilai Akhir -->
-                        <div class="mb-3">
-                            <label class="form-label">Nilai Akhir</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="bi bi-calculator"></i>
-                                </span>
-                                <input type="number" step="0.01" class="form-control" name="final_score"
-                                    placeholder="Masukkan Nilai Akhir">
-                            </div>
-                        </div>
-
-                        <!-- Status Kelulusan -->
-                        <div class="mb-3">
-                            <label class="form-label">Status Kelulusan</label>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="is_eligible" value="1">
-                                <label class="form-check-label">
-                                    Eligible / Lulus
-                                </label>
-                            </div>
-                            <small class="text-muted">
-                                Jika tidak dicentang, status otomatis <b>Tidak Eligible</b>
-                            </small>
-                        </div>
+                    <!-- Nama -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-user text-gray-500"></i>
+                            Nama
+                        </label>
+                        <input name="nama" class="input" type="text" value="{{ $s->nama }}"
+                            placeholder="Nama" required>
                     </div>
 
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button class="btn btn-primary">Simpan</button>
+                    <!-- Kelas -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-school text-gray-500"></i>
+                            Kelas
+                        </label>
+                        <input name="kelas" class="input" type="text" value="{{ $s->kelas }}"
+                            placeholder="Kelas" required>
                     </div>
+
+                    <!-- Total Nilai -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-square-poll-horizontal text-gray-500"></i>
+                            Total Nilai
+                        </label>
+                        <input name="total_score" class="input" type="number" step="0.01"
+                            value="{{ $s->total_score }}" placeholder="Total Nilai">
+                    </div>
+
+                    <!-- Rata-rata Nilai -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-chart-line text-gray-500"></i>
+                            Rata-rata Nilai
+                        </label>
+                        <input name="average_score" class="input" type="number" step="0.01"
+                            value="{{ $s->average_score }}" placeholder="Rata-rata Nilai">
+                    </div>
+
+                    <!-- Ranking -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-ranking-star text-gray-500"></i>
+                            Ranking
+                        </label>
+                        <input name="ranking" class="input" type="number" value="{{ $s->ranking }}"
+                            placeholder="Ranking">
+                    </div>
+
+                    <!-- Keterangan / Informasi -->
+                    <div>
+                        <label class="text-sm font-semibold flex items-center gap-2 mb-1">
+                            <i class="fa-solid fa-circle-info text-gray-500"></i>
+                            Keterangan
+                        </label>
+                        <input name="information" class="input" type="text" value="{{ $s->information }}"
+                            placeholder="Keterangan tambahan" required>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end gap-2 mt-4">
+                    <button type="button" onclick="closeModal('edit{{ $s->id }}')" class="btn-secondary">
+                        Batal
+                    </button>
+                    <button class="btn-primary">
+                        Update
+                    </button>
                 </div>
             </form>
         </div>
-    </div>
-
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#studentsTable').DataTable({
-                    pageLength: 10,
-                    lengthChange: false,
-                    ordering: true,
-                    responsive: true,
-                    autoWidth: false,
-                    language: {
-                        search: "Cari:",
-                        zeroRecords: "Data tidak ditemukan",
-                        info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-                        infoEmpty: "Tidak ada data",
-                        infoFiltered: "(difilter dari _MAX_ data)",
-                        paginate: {
-                            next: "›",
-                            previous: "‹"
-                        }
-                    },
-                    columnDefs: [{
-                            orderable: false,
-                            targets: 5
-                        } // kolom aksi
-                    ]
-                });
-
-                function hapus(id) {
-                    Swal.fire({
-                        title: 'Yakin hapus?',
-                        text: 'Data tidak bisa dikembalikan',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Ya, hapus',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            document.getElementById('hapus-' + id).submit();
-                        }
-                    });
-                }
-            });
-        </script>
-    @endpush
+    @endforeach
 @endsection
+
+@push('scripts')
+    <script>
+        const importForm = document.querySelector('#importModal form')
+        const btnImport = document.getElementById('btnImport')
+        const spinner = document.getElementById('importSpinner')
+        const importText = document.getElementById('importText')
+
+        if (importForm) {
+            importForm.addEventListener('submit', function() {
+                btnImport.disabled = true
+                btnImport.classList.add('opacity-70', 'cursor-not-allowed')
+
+                spinner.classList.remove('hidden')
+                importText.textContent = 'Mengimpor...'
+            })
+        }
+
+        $(document).ready(function() {
+            $('#studentsTable').DataTable({
+                pageLength: 10,
+                order: [
+                    [6, 'asc']
+                ],
+            });
+        });
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('show')
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show')
+        }
+
+        function resetData() {
+            Swal.fire({
+                title: 'Reset semua data?',
+                text: 'Semua data siswa akan dihapus permanen!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                confirmButtonText: 'Ya, Reset',
+                cancelButtonText: 'Batal'
+            }).then(r => {
+                if (r.isConfirmed) {
+                    document.getElementById('reset-form').submit()
+                }
+            })
+        }
+
+
+        function hapus(id) {
+            Swal.fire({
+                title: 'Yakin hapus?',
+                text: 'Data tidak bisa dikembalikan',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus'
+            }).then(r => {
+                if (r.isConfirmed) {
+                    document.getElementById('hapus-' + id).submit()
+                }
+            })
+        }
+    </script>
+
+    <style>
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex
+        }
+
+        .modal-box {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 820px;
+        }
+
+        .input {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            padding: 8px 14px;
+            border-radius: 8px
+        }
+    </style>
+@endpush

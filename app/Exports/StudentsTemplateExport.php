@@ -16,27 +16,50 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
     public function headings(): array
     {
         return [
-            'NIS',
-            'Nama',
-            'Kelas',
-            'Nilai Akhir',
-            'Status',
+            'username',
+            'pasword',
+            'nama',
+            'kelas',
+            'total',
+            'rata_rata',
+            'ranking',
+            'ket',
         ];
     }
 
     public function array(): array
     {
         return [
-            ['12345', 'Andi Wijaya', 'X IPA 1', 85, 'ELIGIBLE'],
-            ['12346', 'Budi Santoso', 'X IPA 2', 72, 'TIDAK'],
+            [
+                '18232411472',
+                'Asthahannas18',
+                'Haris Bintang Lazuardi',
+                'XII-2',
+                6119,
+                91.32,
+                1,
+                'ELIGIBLE',
+            ],
+            [
+                '18232411473',
+                'Asthahannas18',
+                'Budi Santoso',
+                'XII-3',
+                5870,
+                88.45,
+                2,
+                'CADANGAN PRIORITAS 1',
+            ],
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        $lastRow = $sheet->getHighestRow();
+        $lastColumn = 'H';
+        $lastRow    = $sheet->getHighestRow();
 
-        $sheet->getStyle('A1:E1')->applyFromArray([
+        // Header style
+        $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => 'FFFFFF'],
@@ -51,7 +74,8 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             ],
         ]);
 
-        $sheet->getStyle("A1:E{$lastRow}")->applyFromArray([
+        // Border all
+        $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
@@ -60,23 +84,22 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             ],
         ]);
 
+        // Alignment
         $sheet->getStyle("A2:A{$lastRow}")
-            ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-        $sheet->getStyle("C2:C{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         $sheet->getStyle("D2:D{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        $sheet->getStyle("E2:E{$lastRow}")
+        $sheet->getStyle("E2:G{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
+        // Status coloring
         foreach (range(2, $lastRow) as $row) {
-            $status = strtoupper($sheet->getCell("E{$row}")->getValue());
+            $status = strtoupper($sheet->getCell("H{$row}")->getValue());
 
             if ($status === 'ELIGIBLE') {
-                $sheet->getStyle("E{$row}")->applyFromArray([
+                $sheet->getStyle("H{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
@@ -85,12 +108,12 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
                 ]);
             }
 
-            if ($status === 'TIDAK') {
-                $sheet->getStyle("E{$row}")->applyFromArray([
+            if (str_contains($status, 'CADANGAN')) {
+                $sheet->getStyle("H{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
-                        'startColor' => ['rgb' => 'FEE2E2'],
+                        'startColor' => ['rgb' => 'FEF9C3'],
                     ],
                 ]);
             }

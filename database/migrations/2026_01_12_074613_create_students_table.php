@@ -6,26 +6,34 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+
             $table->string('nis')->unique();
+            $table->string('password');
+
             $table->string('nama');
             $table->string('kelas');
+            $table->string('information');
 
-            $table->decimal('final_score', 5, 2);
-            $table->boolean('is_eligible');
+            $table->integer('total_score');
+            $table->decimal('average_score', 6, 2);
+            $table->integer('ranking');
+
+            $table->enum('status', [
+                'diterima',
+                'ditolak',
+                'pending',
+            ])->default('pending');
+
+            $table->boolean('is_eligible')->default(false);
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('students');

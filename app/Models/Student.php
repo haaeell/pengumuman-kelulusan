@@ -14,35 +14,22 @@ class Student extends Model
         'nis',
         'nama',
         'kelas',
-        'final_score',
+        'total_score',
+        'average_score',
+        'ranking',
         'is_eligible',
+        'information',
+        'status',
+        'password'
     ];
 
+
     protected $casts = [
-        'final_score' => 'float',
+        'total_score' => 'float',
         'is_eligible' => 'boolean',
     ];
 
     protected $attributes = [
         'is_eligible' => false,
     ];
-
-    public function scopeEligible($query)
-    {
-        return $query->where('is_eligible', true);
-    }
-
-    public function scopeKelas($query, $kelas)
-    {
-        return $query->where('kelas', $kelas);
-    }
-
-    protected static function booted()
-    {
-        static::saving(function ($student) {
-            if (! is_null($student->final_score)) {
-                $student->is_eligible = $student->final_score >= 75;
-            }
-        });
-    }
 }
