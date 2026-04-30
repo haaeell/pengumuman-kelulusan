@@ -4,13 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
     <title>Pengumuman Kelulusan Siswa</title>
+
+    <!-- SEO Meta -->
+    <meta name="description" content="Cek pengumuman kelulusan siswa secara online dengan cepat dan mudah.">
+    <meta name="keywords" content="kelulusan, siswa, pengumuman, sekolah">
+    <meta name="author" content="Sekolah">
+
+    <!-- Favicon / Logo -->
+    <link rel="icon" type="image/png"
+        href="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+
+    <!-- Open Graph (Share ke WA, FB, dll) -->
+    <meta property="og:title" content="Pengumuman Kelulusan Siswa">
+    <meta property="og:description" content="Cek hasil kelulusanmu sekarang juga secara online.">
+    <meta property="og:image"
+        content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pengumuman Kelulusan Siswa">
+    <meta name="twitter:description" content="Cek hasil kelulusanmu sekarang juga.">
+    <meta name="twitter:image"
+        content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+
+    <!-- Theme Color (biar bagus di HP) -->
+    <meta name="theme-color" content="#4f46e5">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
+
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         * {
