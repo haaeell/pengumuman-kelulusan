@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnnouncementDateController;
 use App\Http\Controllers\StudentCheckController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WaLinkController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -13,9 +13,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/cek-nis', [StudentCheckController::class, 'check'])->name('student.check');
-Route::post('/print', [StudentController::class, 'printPdf'])->name('student.print');
-Route::post('/student/update-status', [StudentController::class, 'updateStatus'])->name('student.updateStatus');
+Route::post('/check', [StudentCheckController::class, 'check'])->name('check.result');
+Route::get('/students/{student}/certificate', [StudentCheckController::class, 'certificate'])->name('check.certificate');
 
 Route::middleware('auth')->prefix('students')->group(function () {
     Route::delete('/reset', [StudentController::class, 'reset'])->name('students.reset');
@@ -29,25 +28,16 @@ Route::middleware('auth')->prefix('students')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/wa-links', [WaLinkController::class, 'index']);
-    Route::post('/wa-links', [WaLinkController::class, 'store'])->name('wa-links.store');
+    Route::controller(AnnouncementDateController::class)->prefix('announcements')->name('announcements.')->group(function () {
+        Route::get('/',           'index')->name('index');
+        Route::post('/',          'store')->name('store');
+        Route::put('/{announcement}',    'update')->name('update');
+        Route::delete('/{announcement}', 'destroy')->name('destroy');
+        Route::patch('/{announcement}/toggle', 'toggleActive')->name('toggle');
+    });
 });
 
 
 Route::get('/home', function () {
     return redirect()->route('students.index');
-});
-
-Route::get('/migrate-fresh-seed', function () {
-    Artisan::call('migrate:fresh', [
-        '--seed' => true,
-    ]);
-
-    $output = Artisan::output();
-
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Database berhasil di-reset dan di-seed!',
-        'artisan_output' => $output
-    ]);
 });

@@ -2,33 +2,78 @@
 <html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <title>Pengumuman Siswa Eligible</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body {
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            background-image: radial-gradient(circle, rgba(200, 200, 200, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+        * {
+            font-family: 'Poppins', sans-serif;
         }
 
-        .fade-in {
-            animation: fadeIn 0.35s ease-in-out;
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        @keyframes fadeIn {
+        .btn-gradient {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            transition: all 0.2s;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-gradient:active {
+            transform: translateY(0);
+        }
+
+        .input-focus:focus {
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .result-section {
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: fadeUp 0.45s ease;
+        }
+
+        @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(20px);
             }
 
             to {
@@ -37,545 +82,499 @@
             }
         }
 
-        .status-card {
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .pulse-dot {
+            animation: pulseDot 1.5s ease infinite;
         }
 
-        .status-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
+        @keyframes pulseDot {
 
-        .icon-circle {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 10px;
-        }
-
-        /* Decorative blobs */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.3;
-            z-index: 0;
-            filter: blur(80px);
-            animation: blobMove 20s infinite alternate;
-        }
-
-        .blob1 {
-            width: 220px;
-            height: 220px;
-            background: #6366f1;
-            top: -60px;
-            left: -60px;
-        }
-
-        .blob2 {
-            width: 300px;
-            height: 300px;
-            background: #3b82f6;
-            bottom: -80px;
-            right: -80px;
-            animation-delay: 5s;
-        }
-
-        .confetti-piece {
-            position: fixed;
-            pointer-events: none;
-            z-index: 50;
-            top: -10px;
-            opacity: 0.9;
-            transform: rotate(0deg);
-            animation: confetti-fall linear forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-
+            0%,
             100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        .sparkle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #facc15, #f59e0b);
-            border-radius: 50%;
-            opacity: 0.8;
-            pointer-events: none;
-            z-index: 55;
-            animation: sparkle-fade 0.6s ease-out forwards;
-        }
-
-        @keyframes sparkle-fade {
-            0% {
-                transform: scale(0);
                 opacity: 1;
-            }
-
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        @keyframes blobMove {
-            0% {
-                transform: translate(0, 0) scale(1);
+                transform: scale(1);
             }
 
             50% {
-                transform: translate(30px, -20px) scale(1.1);
+                opacity: 0.4;
+                transform: scale(0.7);
             }
+        }
 
+        .cd-num {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (max-width: 640px) {
+            .cd-num {
+                font-size: 1.6rem;
+            }
+        }
+
+        .lulus-glow {
+            animation: glowPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
             100% {
-                transform: translate(0, 20px) scale(0.95);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+                box-shadow: 0 0 0 rgba(16, 185, 129, 0);
             }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin-slow {
-            0% {
-                transform: rotate(360deg);
-            }
-
-            100% {
-                transform: rotate(0deg);
-            }
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        .animate-spin-slow {
-            animation: spin-slow 1.5s linear infinite;
-        }
-
-        @keyframes shake {
-            0% {
-                transform: translateX(0);
-            }
-
-            20% {
-                transform: translateX(-6px);
-            }
-
-            40% {
-                transform: translateX(6px);
-            }
-
-            60% {
-                transform: translateX(-4px);
-            }
-
-            80% {
-                transform: translateX(4px);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
-        }
-
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
-
-        /* RESPONSIVE */
-        @media(max-width:640px) {
-
-            .blob1,
-            .blob2 {
-                width: 150px;
-                height: 150px;
-                filter: blur(60px);
-            }
-
-            .icon-circle {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
-            }
-        }
-
-        @media(min-width:768px) {
-            .max-w-md {
-                max-width: 480px;
-            }
-        }
-
-        @media(min-width:1024px) {
-            .max-w-md {
-                max-width: 540px;
+            50% {
+                box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
             }
         }
     </style>
 </head>
 
-<body>
-    <span class="blob blob1"></span>
-    <span class="blob blob2"></span>
+<body class="min-h-screen bg-slate-50">
 
-    <div class="w-full max-w-md fade-in relative z-10">
-        <div class="bg-white shadow-2xl rounded-2xl p-6 sm:p-8 md:p-10 border border-gray-100 relative z-10">
-            <div class="text-center mb-6 relative z-10">
-                <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
-                    alt="Logo Sekolah" class="mx-auto w-20 h-20 sm:w-24 sm:h-24 rounded-full shadow-md mb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-1">Pengumuman Kelulusan</h2>
-                <div class="w-16 sm:w-20 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded mx-auto my-2"></div>
-                <p class="text-gray-500 text-sm sm:text-sm">Masukkan NIS untuk melihat status kelulusan siswa.</p>
-            </div>
-
-            <form id="cekForm" class="mb-4 relative z-10">
-                @csrf
-                <!-- Input NIS -->
-                <div class="relative mb-4">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">
-                        <i class="bi bi-card-text"></i>
-                    </span>
-                    <input type="text" id="nis" name="nis" placeholder="Masukkan NIS"
-                        class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-300 text-center shadow-sm text-sm sm:text-base">
-                </div>
-
-                <!-- Input Password -->
-                <div class="relative mb-4">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">
-                        <i class="bi bi-lock-fill"></i>
-                    </span>
-                    <input type="password" id="password" name="password" placeholder="Masukkan Password"
-                        class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-300 text-center shadow-sm text-sm sm:text-base">
-                </div>
-
-                <button type="submit"
-                    class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold hover:from-blue-600 hover:to-indigo-600 shadow-md hover:shadow-lg transition duration-300 text-sm sm:text-base">
-                    Cek Hasil
-                </button>
-            </form>
-
-
-            <div id="loading" class="text-center mt-4 hidden relative">
-                <div class="relative w-14 h-14 mx-auto">
-                    <div class="absolute inset-0 rounded-full border-4 border-blue-300 border-t-blue-500 animate-spin">
-                    </div>
-                    <div
-                        class="absolute inset-2 rounded-full border-2 border-blue-200 border-t-blue-400 animate-spin-slow">
-                    </div>
-                </div>
-                <div class="text-gray-400 text-sm mt-2">Memeriksa data...</div>
-            </div>
-
-            <div id="result" class="mt-4 hidden"></div>
-
-            <div class="text-center mt-6 text-gray-400 text-xs sm:text-sm relative z-10">
-                © {{ date('Y') }} Pengumuman
-            </div>
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center gap-3">
+            <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
+                class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover flex-shrink-0" alt="Logo">
+            <span class="text-xs sm:text-sm font-semibold text-gray-800 truncate">SMA Plus Asthahannas — Pengumuman
+                Kelulusan</span>
+            <span class="ml-auto text-[10px] sm:text-xs text-gray-400 flex-shrink-0">TA
+                {{ date('Y') - 1 }}/{{ date('Y') }}</span>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+
+        <div class="text-center mb-10 sm:mb-14">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-3">
+                Halo! 👋<br>
+                <span class="gradient-text italic">Siap Lihat Hasilmu? 🎓</span>
+            </h1>
+            <p class="text-gray-500 text-sm sm:text-[15px] leading-relaxed max-w-md mx-auto">
+                Yuk cek hasil kelulusanmu di sini. Masukkan NIS dan password yang sudah diberikan ya.
+            </p>
+        </div>
+
+        @php
+            $announcement = \App\Models\AnnouncementDate::where('is_active', true)->first();
+            $isOpen = $announcement && now()->gte($announcement->announcement_date);
+        @endphp
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start" id="mainGrid">
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-6">
+
+                @if ($announcement && !$isOpen)
+                    <p
+                        class="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-gray-400 text-center mb-5">
+                        <i class="fa-regular fa-clock mr-1"></i> Pengumuman dibuka dalam
+                    </p>
+                    <div class="flex items-end justify-center gap-2 sm:gap-3 mb-5">
+                        <div
+                            class="text-center bg-slate-50 border border-gray-100 rounded-xl px-3 sm:px-5 py-3 sm:py-4 flex-1 sm:flex-none sm:min-w-[68px]">
+                            <span class="cd-num block" id="cd-days">00</span>
+                            <span
+                                class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 mt-1 block">Hari</span>
+                        </div>
+                        <span class="text-xl font-light text-gray-300 mb-3">:</span>
+                        <div
+                            class="text-center bg-slate-50 border border-gray-100 rounded-xl px-3 sm:px-5 py-3 sm:py-4 flex-1 sm:flex-none sm:min-w-[68px]">
+                            <span class="cd-num block" id="cd-hours">00</span>
+                            <span
+                                class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 mt-1 block">Jam</span>
+                        </div>
+                        <span class="text-xl font-light text-gray-300 mb-3">:</span>
+                        <div
+                            class="text-center bg-slate-50 border border-gray-100 rounded-xl px-3 sm:px-5 py-3 sm:py-4 flex-1 sm:flex-none sm:min-w-[68px]">
+                            <span class="cd-num block" id="cd-minutes">00</span>
+                            <span
+                                class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 mt-1 block">Menit</span>
+                        </div>
+                        <span class="text-xl font-light text-gray-300 mb-3">:</span>
+                        <div
+                            class="text-center bg-slate-50 border border-gray-100 rounded-xl px-3 sm:px-5 py-3 sm:py-4 flex-1 sm:flex-none sm:min-w-[68px]">
+                            <span class="cd-num block" id="cd-seconds">00</span>
+                            <span
+                                class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 mt-1 block">Detik</span>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-400">
+                        Dibuka pada <span
+                            class="font-semibold text-gray-700">{{ $announcement->announcement_date->translatedFormat('l, d F Y — H:i') }}
+                            WIB</span>
+                    </p>
+                    @if($announcement->description)
+                        <p class="text-center text-xs text-gray-400 italic mt-2">{{ $announcement->description }}</p>
+                    @endif
+                    <script>
+                        const targetDate = new Date("{{ $announcement->announcement_date->toISOString() }}");
+                        function updateCountdown() {
+                            const now = new Date();
+                            const diff = targetDate - now;
+                            if (diff <= 0) { location.reload(); return; }
+                            const d = Math.floor(diff / 86400000);
+                            const h = Math.floor((diff % 86400000) / 3600000);
+                            const m = Math.floor((diff % 3600000) / 60000);
+                            const s = Math.floor((diff % 60000) / 1000);
+                            document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+                            document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+                            document.getElementById('cd-minutes').textContent = String(m).padStart(2, '0');
+                            document.getElementById('cd-seconds').textContent = String(s).padStart(2, '0');
+                        }
+                        updateCountdown();
+                        setInterval(updateCountdown, 1000);
+                    </script>
+
+                @elseif ($isOpen)
+                    <div class="text-center py-2">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs font-bold tracking-widest uppercase mb-3">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block"></span>
+                            Pengumuman Sudah Dibuka
+                        </div>
+                        <p class="text-sm text-gray-400 mt-1">
+                            Resmi dibuka sejak <span
+                                class="font-semibold text-gray-700">{{ $announcement->announcement_date->translatedFormat('d F Y, H:i') }}
+                                WIB</span>
+                        </p>
+                    </div>
+
+                @else
+                    <div class="text-center py-4">
+                        <div
+                            class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-400 text-xl mx-auto mb-4">
+                            <i class="fa-solid fa-calendar-xmark"></i>
+                        </div>
+                        <p class="font-semibold text-gray-700 mb-1">Tanggal Belum Diatur</p>
+                        <p class="text-sm text-gray-400">Administrator belum mengatur tanggal pengumuman.</p>
+                    </div>
+                @endif
+
+            </div>
+
+            @if (!$announcement || !$isOpen)
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-8 text-center">
+                    <div
+                        class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-indigo-400 text-xl mx-auto mb-4">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <p class="font-semibold text-gray-800 mb-1">Belum Dapat Diakses</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">Tunggu hingga tanggal pengumuman tiba.<br>Pantau terus
+                        halaman ini.</p>
+                </div>
+
+            @else
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" id="loginSection">
+                    <div class="px-5 sm:px-7 pt-5 sm:pt-7 pb-2">
+                        <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-1">Cek Kelulusanmu</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-5">Masukkan NIS dan password yang diberikan sekolah
+                        </p>
+
+                        <div id="errorBar" style="display:none;"
+                            class="flex items-center gap-2 px-4 py-3 rounded-xl bg-red-50 border border-red-100 text-red-500 text-sm font-medium mb-5">
+                            <i class="fa-solid fa-circle-exclamation flex-shrink-0"></i>
+                            <span id="errorText">NIS atau password salah.</span>
+                        </div>
+
+                        <form id="checkForm">
+                            @csrf
+                            <div class="mb-4">
+                                <label
+                                    class="block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase text-gray-400 mb-2">NIS
+                                    / Username</label>
+                                <div class="relative">
+                                    <i
+                                        class="fa-solid fa-id-badge absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none"></i>
+                                    <input type="text" id="inputNis" placeholder="Masukkan NIS kamu"
+                                        class="input-focus w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-sm text-gray-800 placeholder-gray-300 transition-all"
+                                        required autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <label
+                                    class="block text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase text-gray-400 mb-2">Password</label>
+                                <div class="relative">
+                                    <i
+                                        class="fa-solid fa-key absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none"></i>
+                                    <input type="password" id="inputPassword" placeholder="Masukkan password"
+                                        class="input-focus w-full pl-9 pr-10 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-sm text-gray-800 placeholder-gray-300 transition-all"
+                                        required>
+                                    <button type="button" onclick="togglePw()"
+                                        class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 text-xs transition-colors bg-transparent border-none cursor-pointer">
+                                        <i class="fa-regular fa-eye" id="pwIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" id="submitBtn"
+                                class="btn-gradient w-full py-3 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2">
+                                <div class="spinner" id="spinner"></div>
+                                <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+                                <span id="btnText">Cek Kelulusan</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="px-5 sm:px-7 py-4 bg-slate-50 border-t border-gray-100 mt-5">
+                        <p class="text-center text-xs text-gray-400 leading-relaxed">
+                            Hubungi guru BK jika ada kendala.
+                        </p>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+
+        <div class="result-section mt-5" id="resultSection">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+                <div
+                    class="px-5 sm:px-7 py-5 sm:py-6 border-b border-gray-100 flex items-center justify-between gap-4 flex-wrap">
+                    <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                        <div id="resAvatar"
+                            class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl btn-gradient flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                            —</div>
+                        <div class="min-w-0">
+                            <div id="resNama"
+                                class="font-semibold text-gray-900 text-sm sm:text-base leading-tight truncate">—</div>
+                            <div class="text-xs text-gray-400 mt-0.5 flex items-center gap-1 flex-wrap">
+                                NIS <code id="resNis"
+                                    class="bg-slate-100 px-1.5 py-0.5 rounded-md text-gray-500 font-mono text-[10px]">—</code>
+                                <span>·</span> <span id="resKelas">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="resBadge" class="flex-shrink-0"></div>
+                </div>
+
+                <div class="grid grid-cols-3 divide-x divide-gray-100 border-b border-gray-100">
+                    <div class="px-3 sm:px-6 py-4 sm:py-5">
+                        <p
+                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
+                            <i class="fa-solid fa-chart-simple"></i> <span class="hidden sm:inline">Total</span> Nilai
+                        </p>
+                        <p id="resTotalScore" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
+                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Akumulasi seluruh mapel
+                        </p>
+                    </div>
+                    <div class="px-3 sm:px-6 py-4 sm:py-5">
+                        <p
+                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
+                            <i class="fa-solid fa-chart-line"></i> Rata‑rata
+                        </p>
+                        <p id="resAvgScore" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
+                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Nilai rata‑rata</p>
+                    </div>
+                    <div class="px-3 sm:px-6 py-4 sm:py-5">
+                        <p
+                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
+                            <i class="fa-solid fa-trophy"></i> Peringkat
+                        </p>
+                        <p id="resRanking" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
+                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Di angkatan ini</p>
+                    </div>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
+                                class="fa-solid fa-user w-3.5 text-center text-xs"></i> Nama Lengkap</span>
+                        <span id="infoNama" class="text-xs sm:text-sm font-semibold text-gray-800 text-right">—</span>
+                    </div>
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
+                                class="fa-solid fa-id-card w-3.5 text-center text-xs"></i> NIS</span>
+                        <span id="infoNis" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
+                                class="fa-solid fa-school w-3.5 text-center text-xs"></i> Kelas</span>
+                        <span id="infoKelas" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
+                                class="fa-solid fa-circle-info w-3.5 text-center text-xs"></i> Status Kelulusan</span>
+                        <span id="infoStatus" class="text-xs sm:text-sm font-bold">—</span>
+                    </div>
+                </div>
+
+                <div
+                    class="px-5 sm:px-7 py-4 sm:py-5 bg-slate-50 border-t border-gray-100 flex items-center justify-between gap-3 flex-wrap">
+                    <button onclick="backToForm()"
+                        class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-800 hover:border-gray-300 transition-all cursor-pointer">
+                        <i class="fa-solid fa-arrow-left text-xs"></i> Kembali
+                    </button>
+                    <a href="#" id="downloadBtn" target="_blank"
+                        class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl btn-gradient text-white text-xs sm:text-sm font-semibold">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <span class="hidden xs:inline">Download</span> Surat Kelulusan
+                    </a>
+                </div>
+
+            </div>
+            <p class="text-center text-xs text-gray-400 mt-4">Dokumen ini bersifat resmi. Simpan dengan baik dan jangan
+                disebarluaskan.</p>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-gray-100 bg-white py-5 text-center text-xs text-gray-400">
+        © {{ date('Y') }} · Sistem Pengumuman Kelulusan
+    </footer>
 
     <script>
-        const form = document.getElementById('cekForm');
-        const loading = document.getElementById('loading');
-        const result = document.getElementById('result');
-        const submitBtn = form.querySelector('button[type="submit"]');
-
-        function celebrate() {
-            const colors = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444', '#a855f7'];
-            for (let i = 0; i < 150; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti-piece');
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.width = confetti.style.height = (Math.random() * 8 + 4) + 'px';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
+        function togglePw() {
+            const inp = document.getElementById('inputPassword');
+            const icon = document.getElementById('pwIcon');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                icon.className = 'fa-regular fa-eye-slash';
+            } else {
+                inp.type = 'password';
+                icon.className = 'fa-regular fa-eye';
             }
-
-            const sparkleCount = 30;
-            for (let i = 0; i < sparkleCount; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.classList.add('sparkle');
-                sparkle.style.left = (window.innerWidth / 2 + (Math.random() - 0.5) * 200) + 'px';
-                sparkle.style.top = (window.innerHeight / 2 + (Math.random() - 0.5) * 200) + 'px';
-                sparkle.style.animationDuration = (Math.random() * 0.6 + 0.4) + 's';
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 600);
-            }
-            const audio = new Audio('https://freesound.org/data/previews/414/414209_5121236-lq.mp3');
-            audio.volume = 0.5;
-            audio.play().catch(() => { });
         }
 
-        function sadEffect(card) {
-            card.classList.add('shake');
-            setTimeout(() => card.classList.remove('shake'), 500);
+        function showError(msg) {
+            const el = document.getElementById('errorBar');
+            document.getElementById('errorText').textContent = msg;
+            el.style.display = 'flex';
+            setTimeout(() => { el.style.display = 'none'; }, 5000);
         }
 
-        function confirmStatus(nis, statusValue) {
-            Swal.fire({
-                title: `Yakin ingin memilih "${statusValue}"?`,
-                text: "Perubahan ini akan langsung disimpan.",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, simpan!',
-                cancelButtonText: 'Batal',
-                reverseButtons: true,
-                customClass: {
-                    confirmButton: 'bg-green-500 text-white hover:bg-green-600 py-2 px-4 rounded',
-                    cancelButton: 'bg-gray-300 text-gray-800 hover:bg-gray-400 py-2 px-4 rounded'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    updateStatus(nis, statusValue);
-                }
-            });
+        function setLoading(on) {
+            const btn = document.getElementById('submitBtn');
+            const spin = document.getElementById('spinner');
+            const icon = document.getElementById('searchIcon');
+            const text = document.getElementById('btnText');
+            btn.disabled = on;
+            spin.style.display = on ? 'block' : 'none';
+            icon.style.display = on ? 'none' : 'inline';
+            text.textContent = on ? 'Memuat...' : 'Cek Kelulusan';
         }
 
-
-        function updateStatus(nis, statusValue) {
-            fetch("{{ route('student.updateStatus') }}", {
-                method: 'POST',
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ nis, status: statusValue })
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (res.status === 'success') {
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            text: `Status siswa diubah menjadi "${statusValue}"`,
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        form.dispatchEvent(new Event('submit'));
-                    } else {
-                        Swal.fire('Gagal', 'Tidak bisa memperbarui status.', 'error');
-                    }
-                })
-                .catch(() => Swal.fire('Error', 'Terjadi kesalahan saat mengubah status.', 'error'));
+        function backToForm() {
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('mainGrid').style.display = '';
+            document.getElementById('loginSection').style.display = '';
+            document.getElementById('inputNis').value = '';
+            document.getElementById('inputPassword').value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-
-
-        form.addEventListener('submit', function (e) {
+        document.getElementById('checkForm')?.addEventListener('submit', async function (e) {
             e.preventDefault();
+            setLoading(true);
+            document.getElementById('errorBar').style.display = 'none';
 
-            const nis = document.getElementById('nis').value.trim();
-            const password = document.getElementById('password').value.trim();
+            const nis = document.getElementById('inputNis').value.trim();
+            const password = document.getElementById('inputPassword').value.trim();
 
-            if (!nis || !password) {
-                result.classList.remove('hidden');
-                result.innerHTML = `
-                    <div class="status-card bg-yellow-100 text-yellow-600 text-center">
-                        <div class="icon-circle bg-yellow-600 text-white">
-                            <i class="bi bi-exclamation-lg"></i>
-                        </div>
-                        <h6 class="font-bold mb-1">Input Kosong</h6>
-                        <small>Silakan masukkan NIS dan Password terlebih dahulu.</small>
-                    </div>`;
-                return;
+            try {
+                const res = await fetch('{{ route("check.result") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ nis, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    showError(data.message ?? 'NIS atau password salah.');
+                    setLoading(false);
+                    return;
+                }
+
+                const s = data.student;
+
+                document.getElementById('resAvatar').textContent = (s.nama || '?').charAt(0).toUpperCase();
+                document.getElementById('resNama').textContent = s.nama;
+                document.getElementById('resNis').textContent = s.nis;
+                document.getElementById('resKelas').textContent = s.kelas;
+                document.getElementById('resTotalScore').textContent = s.total_score;
+                document.getElementById('resAvgScore').textContent = parseFloat(s.average_score).toFixed(2);
+                document.getElementById('resRanking').textContent = '#' + s.ranking;
+                document.getElementById('infoNama').textContent = s.nama;
+                document.getElementById('infoNis').textContent = s.nis;
+                document.getElementById('infoKelas').textContent = s.kelas;
+
+                const lulus = s.status === 'lulus';
+
+                if (lulus) {
+
+                    playConfetti();
+                    document.getElementById('resultSection').classList.add('lulus-glow');
+                }
+                document.getElementById('infoStatus').textContent = lulus ? 'LULUS' : 'TIDAK LULUS';
+                document.getElementById('infoStatus').style.color = lulus ? '#059669' : '#dc2626';
+
+                document.getElementById('resBadge').innerHTML = lulus
+                    ? `<span class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-[10px] sm:text-xs font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-check"></i> LULUS</span>`
+                    : `<span class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-red-50 border border-red-200 text-red-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-xmark"></i> TIDAK LULUS</span>`;
+
+                const dlBtn = document.getElementById('downloadBtn');
+                if (lulus) {
+                    dlBtn.href = `/students/${s.id}/certificate?token=${data.token}`;
+                    dlBtn.onclick = null;
+                } else {
+                    dlBtn.href = '#';
+                    dlBtn.onclick = (ev) => {
+                        ev.preventDefault();
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Tidak Tersedia',
+                            text: 'Surat kelulusan hanya tersedia untuk siswa yang dinyatakan LULUS.',
+                            confirmButtonColor: '#6366f1',
+                            customClass: { popup: 'rounded-2xl' }
+                        });
+                    };
+                }
+
+                document.getElementById('mainGrid').style.display = 'none';
+                document.getElementById('resultSection').classList.add('show');
+                window.scrollTo({ top: document.getElementById('resultSection').offsetTop - 40, behavior: 'smooth' });
+
+            } catch (err) {
+                showError('Terjadi kesalahan. Coba lagi nanti.');
             }
 
-            loading.classList.remove('hidden');
-            result.classList.add('hidden');
-            submitBtn.disabled = true;
-            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-
-            fetch("{{ route('student.check') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ nis, password }),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    loading.classList.add('hidden');
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    result.classList.remove('hidden');
-
-                    if (res.status === 'not_found') {
-                        result.innerHTML = `
-            <div id="failCard" class="status-card bg-red-100 text-red-600 text-center">
-                <div class="icon-circle bg-red-600 text-white">
-                    <i class="bi bi-x-lg"></i>
-                </div>
-                <h6 class="font-bold mb-1">Data Tidak Ditemukan</h6>
-                <small>NIS tidak terdaftar.</small>
-            </div>`;
-                        sadEffect(document.getElementById('failCard'));
-                        return;
-                    }
-
-                    if (res.status === 'wrong_password') {
-                        result.innerHTML = `
-            <div id="failCard" class="status-card bg-red-100 text-red-600 text-center">
-                <div class="icon-circle bg-red-600 text-white">
-                    <i class="bi bi-lock-fill"></i>
-                </div>
-                <h6 class="font-bold mb-1">Password Salah</h6>
-                <small>Password yang Anda masukkan tidak sesuai.</small>
-            </div>`;
-                        sadEffect(document.getElementById('failCard'));
-                        return;
-                    }
-
-                    let status = 'info';
-                    const infoText = (res.data.information || '').toLowerCase();
-
-                    if (infoText.includes('tidak eligible')) {
-                        status = 'danger';
-                    } else if (infoText.includes('eligible')) {
-                        status = 'success';
-                    }
-
-                    const map = {
-                        success: {
-                            card: 'bg-green-100 text-green-600',
-                            iconBg: 'bg-green-600',
-                            icon: 'bi-check-lg',
-                            title: 'Selamat!',
-                            definition: 'Yeay, kamu lolos! Siap lanjut ke tahap berikutnya 😊'
-                        },
-                        danger: {
-                            card: 'bg-red-100 text-red-600',
-                            iconBg: 'bg-red-600',
-                            icon: 'bi-x-lg',
-                            title: 'Mohon Maaf',
-                            definition: 'Ups, belum berhasil kali ini 😢 Tapi jangan menyerah ya!'
-                        },
-                        info: {
-                            card: 'bg-blue-100 text-blue-600',
-                            iconBg: 'bg-blue-600',
-                            icon: 'bi-info-lg',
-                            title: 'Cadangan',
-                            definition: 'Kamu masuk daftar cadangan, siapa tahu ada yang mengundurkan diri ✨'
-                        }
-                    };
-
-
-                    const cfg = map[status];
-
-                    let actionButtons = '';
-
-                    // Tampilkan tombol hanya jika status masih null / kosong / cadangan / eligible
-                    if ((status === 'success' || status === 'info') && (!res.data.status || res.data.status
-                        .toLowerCase() == 'pending')) {
-                        actionButtons = `
-       <div class="flex gap-2 mt-3">
-    <button class="w-1/2 py-2 rounded-xl bg-green-500 text-white font-semibold hover:bg-green-600 transition"
-        onclick="confirmStatus('${res.data.nis}', 'diterima')">Terima</button>
-    <button class="w-1/2 py-2 rounded-xl bg-red-500 text-white font-semibold hover:bg-red-600 transition"
-        onclick="confirmStatus('${res.data.nis}', 'ditolak')">Tolak</button>
-</div>`;
-                    } else if (res.data.status && status != 'danger') {
-                        actionButtons = `
-        <div class="mt-3 text-center text-gray-700 font-semibold">
-            Status siswa: <span class="text-blue-600">${res.data.status}</span>
-        </div>`;
-                    }
-
-                    let waLink = '';
-                    if (status === 'success' && res.data.status == 'diterima' && res.data.wa_link_eligible) {
-                        waLink = `<div class="mt-3 text-center">
-        <a href="${res.data.wa_link_eligible}" target="_blank"
-            class="inline-block px-4 py-2 rounded-xl bg-green-500 text-white font-semibold hover:bg-green-600 transition">
-            <i class="bi bi-whatsapp me-1"></i> Join Grup WA Eligible
-        </a>
-    </div>`;
-                    } else if (status === 'info' && res.data.status == 'diterima' && res.data.wa_link_cadangan) {
-                        waLink = `<div class="mt-3 text-center">
-        <a href="${res.data.wa_link_cadangan}" target="_blank"
-            class="inline-block px-4 py-2 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition">
-            <i class="bi bi-whatsapp me-1"></i> Join Grup WA Cadangan
-        </a>
-    </div>`;
-                    }
-
-
-
-                    result.innerHTML = `
-        <div id="card" class="status-card ${cfg.card}">
-            <div class="icon-circle ${cfg.iconBg} text-white">
-                <i class="bi ${cfg.icon}"></i>
-            </div>
-
-            <div class="text-center mb-4 px-2">
-                <h5 class="font-bold text-sm sm:text-base">${cfg.title}</h5>
-                <p class="text-xs sm:text-sm mt-1 leading-relaxed">
-                    ${res.data.information}
-                </p>
-                <p class="text-xs sm:text-sm mt-1 leading-relaxed">
-                    ${cfg.definition}
-                </p>
-            </div>
-
-            <div class="border-2 rounded-xl p-3 bg-white text-gray-800 text-xs sm:text-sm shadow-sm
-                ${status === 'success' ? 'border-green-500' : status === 'danger' ? 'border-red-500' : 'border-blue-500'}">
-                <dl class="grid grid-cols-2 gap-2">
-                    <dt class="text-gray-400"><i class="bi bi-person-fill me-1"></i> Nama</dt>
-                    <dd class="font-semibold">: ${res.data.nama}</dd>
-
-                    <dt class="text-gray-400"><i class="bi bi-mortarboard-fill me-1"></i> Kelas</dt>
-                    <dd class="font-semibold">: ${res.data.kelas}</dd>
-
-                    <dt class="text-gray-400"><i class="bi bi-bar-chart-fill me-1"></i> Total Nilai</dt>
-                    <dd class="font-semibold">: ${res.data.total_score}</dd>
-
-                    <dt class="text-gray-400"><i class="bi bi-star-fill me-1"></i> Nilai Rata-rata</dt>
-                    <dd class="font-semibold">: ${res.data.average_score}</dd>
-
-                    <dt class="text-gray-400"><i class="bi bi-trophy-fill me-1"></i> Ranking</dt>
-                    <dd class="font-semibold">: ${res.data.ranking}</dd>
-                </dl>
-            </div>
-                  ${actionButtons}
-                  ${waLink}
-        </div>`;
-
-                    const card = document.getElementById('card');
-                    if (status === 'success') celebrate();
-                    if (status === 'danger') sadEffect(card);
-                })
-                .catch(() => {
-                    loading.classList.add('hidden');
-                    submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    result.classList.remove('hidden');
-                    result.innerHTML = `<p class="text-red-500 text-center">Terjadi kesalahan.</p>`;
-                });
+            setLoading(false);
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        function playConfetti() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 70,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 70,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+    </script>
+
 </body>
 
 </html>

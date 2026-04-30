@@ -36,7 +36,13 @@ class StudentsImport implements
 
     public function model(array $row)
     {
-        $ket = strtoupper(trim($row['ket'] ?? ''));
+        $ket = strtolower(trim($row['ket'] ?? ''));
+
+        $status = match ($ket) {
+            'lulus' => 'lulus',
+            'tidak lulus', 'tidak_lulus' => 'tidak_lulus',
+            default => 'lulus'
+        };
 
         return new Student([
             'nis'           => $row['username'],
@@ -45,13 +51,10 @@ class StudentsImport implements
             'total_score'   => $row['total'],
             'average_score' => $row['rata_rata'],
             'ranking'       => $row['ranking'],
-            'status'        => 'pending',
-            'is_eligible'   => $ket === 'ELIGIBLE',
             'password'      => $this->defaultPassword,
-            'information'   => $row['ket'],
+            'status'        => $status,
         ]);
     }
-
 
     public function rules(): array
     {

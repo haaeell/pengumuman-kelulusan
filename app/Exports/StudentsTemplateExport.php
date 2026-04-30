@@ -17,7 +17,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
     {
         return [
             'username',
-            'pasword',
+            'password',
             'nama',
             'kelas',
             'total',
@@ -38,7 +38,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
                 6119,
                 91.32,
                 1,
-                'ELIGIBLE',
+                'lulus',
             ],
             [
                 '18232411473',
@@ -48,7 +48,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
                 5870,
                 88.45,
                 2,
-                'CADANGAN PRIORITAS 1',
+                'tidak_lulus',
             ],
         ];
     }
@@ -58,7 +58,6 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
         $lastColumn = 'H';
         $lastRow    = $sheet->getHighestRow();
 
-        // Header style
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
             'font' => [
                 'bold' => true,
@@ -74,7 +73,6 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             ],
         ]);
 
-        // Border all
         $sheet->getStyle("A1:{$lastColumn}{$lastRow}")->applyFromArray([
             'borders' => [
                 'allBorders' => [
@@ -84,7 +82,6 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             ],
         ]);
 
-        // Alignment
         $sheet->getStyle("A2:A{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
@@ -94,11 +91,10 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
         $sheet->getStyle("E2:G{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        // Status coloring
         foreach (range(2, $lastRow) as $row) {
-            $status = strtoupper($sheet->getCell("H{$row}")->getValue());
+            $status = strtolower(trim($sheet->getCell("H{$row}")->getValue()));
 
-            if ($status === 'ELIGIBLE') {
+            if ($status === 'lulus') {
                 $sheet->getStyle("H{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
@@ -108,12 +104,12 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
                 ]);
             }
 
-            if (str_contains($status, 'CADANGAN')) {
+            if ($status === 'tidak_lulus') {
                 $sheet->getStyle("H{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
-                        'startColor' => ['rgb' => 'FEF9C3'],
+                        'startColor' => ['rgb' => 'FEE2E2'],
                     ],
                 ]);
             }

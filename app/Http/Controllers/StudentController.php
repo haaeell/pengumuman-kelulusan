@@ -42,11 +42,7 @@ class StudentController extends Controller
             'total_score'    => $request->total_score,
             'average_score'  => $request->average_score,
             'ranking'        => $request->ranking,
-
-            'is_eligible'    => $request->information === 'ELIGIBLE' ? true : false,
-            'status'         => 'pending',
-            'information'    => $request->information,
-
+            'status'         => 'lulus',
             'password'       => Hash::make('Asthahannas18'),
         ]);
 
@@ -86,10 +82,7 @@ class StudentController extends Controller
             'total_score'    => $request->total_score,
             'average_score'  => $request->average_score,
             'ranking'        => $request->ranking,
-
-            'is_eligible'    => $request->information === 'ELIGIBLE' ? true : false,
-            'status'         => 'pending',
-            'information'    => $request->information,
+            'status'         => 'lulus',
         ]);
 
         return back()->with('success', 'Data siswa berhasil diperbarui');

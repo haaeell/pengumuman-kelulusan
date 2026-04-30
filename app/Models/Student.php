@@ -17,8 +17,6 @@ class Student extends Model
         'total_score',
         'average_score',
         'ranking',
-        'is_eligible',
-        'information',
         'status',
         'password'
     ];
@@ -26,10 +24,18 @@ class Student extends Model
 
     protected $casts = [
         'total_score' => 'float',
-        'is_eligible' => 'boolean',
     ];
 
-    protected $attributes = [
-        'is_eligible' => false,
-    ];
+    const STATUS_LULUS      = 'lulus';
+    const STATUS_TIDAK_LULUS = 'tidak_lulus';
+
+    public function isLulus(): bool
+    {
+        return $this->status === self::STATUS_LULUS;
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return $this->status === self::STATUS_LULUS ? 'Lulus' : 'Tidak Lulus';
+    }
 }

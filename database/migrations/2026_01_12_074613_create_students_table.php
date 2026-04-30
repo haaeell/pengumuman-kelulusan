@@ -13,22 +13,16 @@ return new class extends Migration
 
             $table->string('nis')->unique();
             $table->string('password');
-
             $table->string('nama');
             $table->string('kelas');
-            $table->string('information');
-
             $table->integer('total_score');
             $table->decimal('average_score', 6, 2);
             $table->integer('ranking');
 
             $table->enum('status', [
-                'diterima',
-                'ditolak',
-                'pending',
-            ])->default('pending');
-
-            $table->boolean('is_eligible')->default(false);
+                'lulus',
+                'tidak_lulus',
+            ])->default('lulus');
 
             $table->timestamps();
         });
