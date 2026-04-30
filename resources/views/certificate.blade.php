@@ -20,11 +20,11 @@
 
         body {
             font-family: "DejaVu Serif", "Times New Roman", serif;
-            font-size: 11pt;
+            font-size: 9pt;
             color: #1c1c2e;
             background: #ffffff;
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
             position: relative;
             overflow: hidden;
         }
@@ -32,55 +32,55 @@
         /* ══ BORDER FRAME ══ */
         .frame-outer {
             position: absolute;
-            top: 7mm;
-            left: 7mm;
-            right: 7mm;
-            bottom: 7mm;
-            border: 4px solid #1a3668;
+            top: 5mm;
+            left: 5mm;
+            right: 5mm;
+            bottom: 5mm;
+            border: 3.5px solid #1a3668;
         }
 
         .frame-inner {
             position: absolute;
-            top: 10.5mm;
-            left: 10.5mm;
-            right: 10.5mm;
-            bottom: 10.5mm;
+            top: 8.5mm;
+            left: 8.5mm;
+            right: 8.5mm;
+            bottom: 8.5mm;
             border: 1px solid #b8922a;
         }
 
         /* ══ CORNER ACCENTS ══ */
         .corner {
             position: absolute;
-            width: 18mm;
-            height: 18mm;
+            width: 15mm;
+            height: 15mm;
         }
 
         .corner-tl {
-            top: 6mm;
-            left: 6mm;
-            border-top: 5px solid #b8922a;
-            border-left: 5px solid #b8922a;
+            top: 4mm;
+            left: 4mm;
+            border-top: 4px solid #b8922a;
+            border-left: 4px solid #b8922a;
         }
 
         .corner-tr {
-            top: 6mm;
-            right: 6mm;
-            border-top: 5px solid #b8922a;
-            border-right: 5px solid #b8922a;
+            top: 4mm;
+            right: 4mm;
+            border-top: 4px solid #b8922a;
+            border-right: 4px solid #b8922a;
         }
 
         .corner-bl {
-            bottom: 6mm;
-            left: 6mm;
-            border-bottom: 5px solid #b8922a;
-            border-left: 5px solid #b8922a;
+            bottom: 4mm;
+            left: 4mm;
+            border-bottom: 4px solid #b8922a;
+            border-left: 4px solid #b8922a;
         }
 
         .corner-br {
-            bottom: 6mm;
-            right: 6mm;
-            border-bottom: 5px solid #b8922a;
-            border-right: 5px solid #b8922a;
+            bottom: 4mm;
+            right: 4mm;
+            border-bottom: 4px solid #b8922a;
+            border-right: 4px solid #b8922a;
         }
 
         /* ══ WATERMARK ══ */
@@ -88,15 +88,15 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            margin-top: -30mm;
-            margin-left: -55mm;
+            margin-top: -22mm;
+            margin-left: -42mm;
             z-index: 0;
             opacity: 0.04;
         }
 
         .wm-text {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 80pt;
+            font-size: 60pt;
             font-weight: bold;
             color: #1a3668;
             text-transform: uppercase;
@@ -109,15 +109,15 @@
         .page {
             position: relative;
             z-index: 1;
-            padding: 17mm 22mm 14mm;
+            padding: 13mm 19mm 10mm;
         }
 
         /* ══════════════════════
            KOP SURAT
         ══════════════════════ */
         .kop {
-            border-bottom: 3px double #1a3668;
-            padding-bottom: 10px;
+            border-bottom: 2.5px double #1a3668;
+            padding-bottom: 7px;
             margin-bottom: 0;
         }
 
@@ -127,25 +127,25 @@
         }
 
         .kop-logo-cell {
-            width: 22mm;
+            width: 18mm;
             vertical-align: middle;
         }
 
         .kop-logo-cell img {
-            width: 20mm;
-            height: 20mm;
-            border-radius: 3px;
+            width: 16mm;
+            height: 16mm;
+            border-radius: 2px;
         }
 
         .kop-center-cell {
             vertical-align: middle;
             text-align: center;
-            padding: 0 8px;
+            padding: 0 6px;
         }
 
         .kop-instansi {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 7.5pt;
+            font-size: 6.5pt;
             color: #777;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -153,7 +153,7 @@
 
         .kop-nama-sekolah {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 17pt;
+            font-size: 14pt;
             font-weight: bold;
             color: #1a3668;
             letter-spacing: 2px;
@@ -163,30 +163,30 @@
 
         .kop-alamat {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 8pt;
+            font-size: 7pt;
             color: #555;
-            margin-top: 3px;
-            line-height: 1.55;
+            margin-top: 2px;
+            line-height: 1.5;
         }
 
         .kop-akreditasi-cell {
-            width: 22mm;
+            width: 18mm;
             vertical-align: middle;
             text-align: right;
         }
 
         .akr-box {
             display: inline-block;
-            width: 18mm;
-            height: 18mm;
+            width: 15mm;
+            height: 15mm;
             border: 2px solid #b8922a;
             text-align: center;
-            padding-top: 2mm;
+            padding-top: 1.5mm;
         }
 
         .akr-grade {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 20pt;
+            font-size: 17pt;
             font-weight: bold;
             color: #b8922a;
             line-height: 1;
@@ -194,7 +194,7 @@
 
         .akr-label {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 6pt;
+            font-size: 5pt;
             color: #999;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -205,12 +205,12 @@
         ══════════════════════ */
         .judul-section {
             text-align: center;
-            padding: 13px 0 4px;
+            padding: 9px 0 3px;
         }
 
         .judul-text {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 14pt;
+            font-size: 12pt;
             font-weight: bold;
             color: #1a3668;
             letter-spacing: 3px;
@@ -219,20 +219,20 @@
 
         .nomor-text {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 9pt;
+            font-size: 8pt;
             color: #888;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         /* Ornamen garis */
         .ornamen {
             text-align: center;
-            margin: 8px 0 15px;
+            margin: 6px 0 11px;
         }
 
         .orn-line {
             display: inline-block;
-            width: 48mm;
+            width: 44mm;
             height: 1.5px;
             background: #b8922a;
             vertical-align: middle;
@@ -240,54 +240,54 @@
 
         .orn-diamond {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: #b8922a;
             transform: rotate(45deg);
             vertical-align: middle;
-            margin: 0 6px;
+            margin: 0 5px;
         }
 
         .orn-dot {
             display: inline-block;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: #b8922a;
             border-radius: 50%;
             vertical-align: middle;
-            margin: 0 4px;
+            margin: 0 3px;
         }
 
         /* ══════════════════════
            BADAN TEKS
         ══════════════════════ */
         .pembuka {
-            font-size: 10.5pt;
-            line-height: 2;
+            font-size: 9pt;
+            line-height: 1.85;
             text-align: justify;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         /* Data Siswa */
         .data-tbl {
             width: 100%;
             border-collapse: collapse;
-            margin: 4px 0 12px 10mm;
+            margin: 3px 0 9px 8mm;
         }
 
         .data-tbl td {
-            font-size: 10.5pt;
-            padding: 2.5px 0;
+            font-size: 9pt;
+            padding: 2px 0;
             vertical-align: top;
         }
 
         .data-tbl .dk {
-            width: 44mm;
+            width: 42mm;
             color: #444;
         }
 
         .data-tbl .ds {
-            width: 8mm;
+            width: 7mm;
             color: #444;
         }
 
@@ -300,19 +300,19 @@
            TABEL NILAI
         ══════════════════════ */
         .nilai-wrap {
-            margin: 8px 0 10px;
+            margin: 6px 0 8px;
         }
 
         .nilai-header {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 8pt;
+            font-size: 7pt;
             font-weight: bold;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: #1a3668;
             border-left: 3px solid #b8922a;
-            padding-left: 7px;
-            margin-bottom: 7px;
+            padding-left: 6px;
+            margin-bottom: 6px;
         }
 
         .nilai-tbl {
@@ -322,12 +322,12 @@
 
         .nilai-tbl thead td {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 8.5pt;
+            font-size: 7.5pt;
             font-weight: bold;
             color: #ffffff;
             background: #1a3668;
             text-align: center;
-            padding: 7px 10px;
+            padding: 6px 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border: 1px solid #1a3668;
@@ -335,23 +335,23 @@
 
         .nilai-tbl tbody td {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 16pt;
+            font-size: 14pt;
             font-weight: bold;
             color: #1a3668;
             text-align: center;
-            padding: 10px 8px;
+            padding: 8px 6px;
             background: #fdfbf3;
             border: 1px solid #e8d9a0;
         }
 
         .nilai-tbl tbody td .sub-lbl {
             display: block;
-            font-size: 7pt;
+            font-size: 6.5pt;
             font-weight: normal;
             color: #aaa;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
         /* ══════════════════════
@@ -359,7 +359,7 @@
         ══════════════════════ */
         .status-wrap {
             text-align: center;
-            margin: 10px 0 8px;
+            margin: 8px 0 7px;
         }
 
         .status-outer {
@@ -370,22 +370,22 @@
 
         .status-inner {
             background: #1a3668;
-            padding: 9px 42px;
+            padding: 7px 38px;
         }
 
         .status-declared {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 8.5pt;
+            font-size: 7.5pt;
             color: #9ab0cc;
             letter-spacing: 3px;
             text-transform: uppercase;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .status-main {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 21pt;
+            font-size: 18pt;
             font-weight: bold;
             color: #f5c842;
             letter-spacing: 8px;
@@ -398,10 +398,10 @@
            PENUTUP
         ══════════════════════ */
         .penutup {
-            font-size: 10.5pt;
-            line-height: 1.95;
+            font-size: 9pt;
+            line-height: 1.8;
             text-align: justify;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         /* ══════════════════════
@@ -410,7 +410,7 @@
         .ttd-tbl {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 18px;
+            margin-top: 13px;
         }
 
         .ttd-left {
@@ -425,63 +425,63 @@
 
         .ttd-kota {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 10pt;
+            font-size: 9pt;
         }
 
         .ttd-jabatan {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 10.5pt;
+            font-size: 9pt;
             font-weight: bold;
             color: #1a3668;
             margin-top: 2px;
-            margin-bottom: 50px;
+            margin-bottom: 38px;
         }
 
         .stempel-circle {
-            width: 28mm;
-            height: 28mm;
+            width: 23mm;
+            height: 23mm;
             border: 1.5px dashed #ccc;
             border-radius: 50%;
-            margin: 0 auto 3px;
+            margin: 0 auto 2px;
             text-align: center;
-            padding-top: 10mm;
+            padding-top: 8mm;
         }
 
         .stempel-label {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 7pt;
+            font-size: 6pt;
             color: #ccc;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .ttd-garis {
-            width: 52mm;
+            width: 48mm;
             border-top: 1.5px solid #1c1c2e;
-            margin: 0 auto 4px;
+            margin: 0 auto 3px;
         }
 
         .ttd-nama-kepsek {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 10.5pt;
+            font-size: 9pt;
             font-weight: bold;
             color: #1a3668;
         }
 
         .ttd-nip {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 8.5pt;
+            font-size: 7.5pt;
             color: #777;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
         /* ══════════════════════
            FOOTER DOKUMEN
         ══════════════════════ */
         .doc-footer {
-            margin-top: 14px;
+            margin-top: 10px;
             border-top: 1px solid #e0e0e0;
-            padding-top: 7px;
+            padding-top: 6px;
         }
 
         .footer-tbl {
@@ -492,9 +492,9 @@
         .footer-info {
             vertical-align: middle;
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 7.5pt;
+            font-size: 6.5pt;
             color: #aaa;
-            line-height: 1.6;
+            line-height: 1.55;
         }
 
         .footer-code-cell {
@@ -505,13 +505,13 @@
         .code-box {
             display: inline-block;
             border: 1px solid #e8e8e8;
-            padding: 4px 10px;
+            padding: 3px 9px;
             text-align: center;
         }
 
         .code-lbl {
             font-family: "DejaVu Sans", Arial, sans-serif;
-            font-size: 6.5pt;
+            font-size: 6pt;
             color: #ccc;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -519,7 +519,7 @@
 
         .code-val {
             font-family: "DejaVu Mono", "Courier New", monospace;
-            font-size: 9pt;
+            font-size: 8pt;
             font-weight: bold;
             color: #1a3668;
             letter-spacing: 2px;
@@ -648,7 +648,7 @@
         </div>
 
         {{-- STATUS --}}
-        <div class="status-wrap">
+        <div class="status-wrap" style="margin-top: 20px">
             <div class="status-outer">
                 <div class="status-inner">
                     <span class="status-declared">Dinyatakan</span>
