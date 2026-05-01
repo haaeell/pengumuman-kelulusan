@@ -73,9 +73,9 @@
         }
 
         .kop-logo img {
-            width: 230px;
+            width: 23z0px;
             height: 230px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .kop-teks {
