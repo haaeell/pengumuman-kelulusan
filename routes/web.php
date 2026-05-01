@@ -11,7 +11,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::post('/check', [StudentCheckController::class, 'check'])->name('check.result');
 Route::get('/students/{student}/certificate', [StudentCheckController::class, 'certificate'])->name('check.certificate');

@@ -5,49 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Title -->
     <title>Pengumuman Kelulusan Siswa</title>
-
-    <!-- SEO Meta -->
     <meta name="description" content="Cek pengumuman kelulusan siswa secara online dengan cepat dan mudah.">
     <meta name="keywords" content="kelulusan, siswa, pengumuman, sekolah">
     <meta name="author" content="Sekolah">
-
-    <!-- Favicon / Logo -->
     <link rel="icon" type="image/png"
         href="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
-
-    <!-- Open Graph (Share ke WA, FB, dll) -->
     <meta property="og:title" content="Pengumuman Kelulusan Siswa">
     <meta property="og:description" content="Cek hasil kelulusanmu sekarang juga secara online.">
     <meta property="og:image"
         content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="id_ID">
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pengumuman Kelulusan Siswa">
     <meta name="twitter:description" content="Cek hasil kelulusanmu sekarang juga.">
     <meta name="twitter:image"
         content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
-
-    <!-- Theme Color (biar bagus di HP) -->
     <meta name="theme-color" content="#4f46e5">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
-
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         * {
@@ -186,16 +167,15 @@
 
     <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
-        <div class="text-center mb-10 sm:mb-14">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-3">
+        <div class="text-center mb-10 sm:mb-14" id="heroSection">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-3" id="heroTitle">
                 Halo! 👋<br>
                 <span class="gradient-text italic">Siap Lihat Hasilmu? 🎓</span>
             </h1>
-            <p class="text-gray-500 text-sm sm:text-[15px] leading-relaxed max-w-md mx-auto">
+            <p class="text-gray-500 text-sm sm:text-[15px] leading-relaxed max-w-md mx-auto" id="heroSubtitle">
                 Yuk cek hasil kelulusanmu di sini. Masukkan NIS dan password yang sudah diberikan ya.
             </p>
         </div>
-
         @php
             $announcement = \App\Models\AnnouncementDate::where('is_active', true)->first();
             $isOpen = $announcement && now()->gte($announcement->announcement_date);
@@ -244,7 +224,7 @@
                             class="font-semibold text-gray-700">{{ $announcement->announcement_date->translatedFormat('l, d F Y — H:i') }}
                             WIB</span>
                     </p>
-                    @if($announcement->description)
+                    @if ($announcement->description)
                         <p class="text-center text-xs text-gray-400 italic mt-2">{{ $announcement->description }}</p>
                     @endif
                     <script>
@@ -355,9 +335,7 @@
                         </form>
                     </div>
                     <div class="px-5 sm:px-7 py-4 bg-slate-50 border-t border-gray-100 mt-5">
-                        <p class="text-center text-xs text-gray-400 leading-relaxed">
-                            Hubungi guru BK jika ada kendala.
-                        </p>
+                        <p class="text-center text-xs text-gray-400 leading-relaxed">Hubungi guru BK jika ada kendala.</p>
                     </div>
                 </div>
             @endif
@@ -367,120 +345,75 @@
         <div class="result-section mt-5" id="resultSection">
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
-                <div
-                    class="px-5 sm:px-7 py-5 sm:py-6 border-b border-gray-100 flex items-center justify-between gap-4 flex-wrap">
-                    <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
                         <div id="resAvatar"
-                            class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl btn-gradient flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                            class="w-11 h-11 rounded-full btn-gradient flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                             —</div>
                         <div class="min-w-0">
-                            <div id="resNama"
-                                class="font-semibold text-gray-900 text-sm sm:text-base leading-tight truncate">—</div>
-                            <div class="text-xs text-gray-400 mt-0.5 flex items-center gap-1 flex-wrap">
+                            <p id="resNama" class="font-semibold text-gray-900 text-sm truncate">—</p>
+                            <p class="text-xs text-gray-400 mt-0.5">
                                 NIS <code id="resNis"
-                                    class="bg-slate-100 px-1.5 py-0.5 rounded-md text-gray-500 font-mono text-[10px]">—</code>
-                                <span>·</span> <span id="resKelas">—</span>
-                            </div>
+                                    class="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-[10px] text-gray-500">—</code>
+                                · <span id="resKelas">—</span>
+                            </p>
                         </div>
                     </div>
                     <div id="resBadge" class="flex-shrink-0"></div>
                 </div>
 
                 <div class="grid grid-cols-3 divide-x divide-gray-100 border-b border-gray-100">
-                    <div class="px-3 sm:px-6 py-4 sm:py-5">
-                        <p
-                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
-                            <i class="fa-solid fa-chart-simple"></i> <span class="hidden sm:inline">Total</span> Nilai
+                    <div class="px-4 py-3">
+                        <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-1">Total Nilai
                         </p>
-                        <p id="resTotalScore" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
-                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Akumulasi seluruh mapel
-                        </p>
+                        <p id="resTotalScore" class="text-2xl font-bold gradient-text">—</p>
                     </div>
-                    <div class="px-3 sm:px-6 py-4 sm:py-5">
-                        <p
-                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
-                            <i class="fa-solid fa-chart-line"></i> Rata‑rata
-                        </p>
-                        <p id="resAvgScore" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
-                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Nilai rata‑rata</p>
+                    <div class="px-4 py-3">
+                        <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-1">Rata-rata</p>
+                        <p id="resAvgScore" class="text-2xl font-bold gradient-text">—</p>
                     </div>
-                    <div class="px-3 sm:px-6 py-4 sm:py-5">
-                        <p
-                            class="text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase text-gray-400 flex items-center gap-1 sm:gap-1.5 mb-2">
-                            <i class="fa-solid fa-trophy"></i> Peringkat
-                        </p>
-                        <p id="resRanking" class="text-2xl sm:text-3xl font-bold gradient-text">—</p>
-                        <p class="text-[10px] sm:text-[11px] text-gray-400 mt-1 hidden sm:block">Di angkatan ini</p>
+                    <div class="px-4 py-3">
+                        <p class="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-1">Peringkat</p>
+                        <p id="resRanking" class="text-2xl font-bold gradient-text">—</p>
                     </div>
                 </div>
 
-                <div class="divide-y divide-gray-100">
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
-                                class="fa-solid fa-user w-3.5 text-center text-xs"></i> Nama Lengkap</span>
-                        <span id="infoNama" class="text-xs sm:text-sm font-semibold text-gray-800 text-right">—</span>
+                <div class="grid grid-cols-2 gap-0 px-5 py-3">
+                    <div class="py-2 pr-4">
+                        <p class="text-[10px] text-gray-400 mb-0.5">NISN</p>
+                        <p id="infoNisn" class="text-sm font-semibold text-gray-800">—</p>
                     </div>
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
-                                class="fa-solid fa-id-card w-3.5 text-center text-xs"></i> NIS</span>
-                        <span id="infoNis" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    <div class="py-2">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Tempat, Tanggal Lahir</p>
+                        <p id="infoTTL" class="text-sm font-semibold text-gray-800">—</p>
                     </div>
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
-                                class="fa-solid fa-school w-3.5 text-center text-xs"></i> Kelas</span>
-                        <span id="infoKelas" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    <div class="py-2 pr-4">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Orang Tua</p>
+                        <p id="infoOrtu" class="text-sm font-semibold text-gray-800">—</p>
                     </div>
-
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
-                            <i class="fa-solid fa-id-card-clip w-3.5 text-center text-xs"></i> NISN
-                        </span>
-                        <span id="infoNisn" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    <div class="py-2">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Mapel Pilihan</p>
+                        <p id="infoMapel" class="text-sm font-semibold text-gray-800">—</p>
                     </div>
-
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot w-3.5 text-center text-xs"></i> Tempat, Tanggal Lahir
-                        </span>
-                        <span id="infoTTL" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
-                    </div>
-
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
-                            <i class="fa-solid fa-user-group w-3.5 text-center text-xs"></i> Orang Tua
-                        </span>
-                        <span id="infoOrtu" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
-                    </div>
-
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
-                            <i class="fa-solid fa-book w-3.5 text-center text-xs"></i> Mapel Pilihan
-                        </span>
-                        <span id="infoMapel" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
-                    </div>
-
-                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
-                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
-                                class="fa-solid fa-circle-info w-3.5 text-center text-xs"></i> Status Kelulusan</span>
-                        <span id="infoStatus" class="text-xs sm:text-sm font-bold">—</span>
+                    <div class="py-2 col-span-2">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Status Kelulusan</p>
+                        <p id="infoStatus" class="text-sm font-bold">—</p>
                     </div>
                 </div>
 
-                <div
-                    class="px-5 sm:px-7 py-4 sm:py-5 bg-slate-50 border-t border-gray-100 flex items-center justify-between gap-3 flex-wrap">
+                <div class="px-5 py-3 bg-slate-50 border-t border-gray-100 flex items-center justify-between gap-3">
                     <button onclick="backToForm()"
-                        class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white border border-gray-200 text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-800 hover:border-gray-300 transition-all cursor-pointer">
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-xs font-medium text-gray-500 hover:text-gray-800 hover:border-gray-300 transition-all cursor-pointer">
                         <i class="fa-solid fa-arrow-left text-xs"></i> Kembali
                     </button>
                     <a href="#" id="downloadBtn" target="_blank"
-                        class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl btn-gradient text-white text-xs sm:text-sm font-semibold">
-                        <i class="fa-solid fa-file-arrow-down"></i>
-                        <span class="hidden xs:inline">Download</span> Surat Kelulusan
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl btn-gradient text-white text-xs font-semibold">
+                        <i class="fa-solid fa-file-arrow-down"></i> Download Surat
                     </a>
                 </div>
 
             </div>
-            <p class="text-center text-xs text-gray-400 mt-4">Dokumen ini bersifat resmi. Simpan dengan baik dan jangan
+            <p class="text-center text-xs text-gray-400 mt-3">Dokumen ini bersifat resmi. Simpan dengan baik dan jangan
                 disebarluaskan.</p>
         </div>
 
@@ -489,6 +422,8 @@
     <footer class="border-t border-gray-100 bg-white py-5 text-center text-xs text-gray-400">
         © {{ date('Y') }} · Sistem Pengumuman Kelulusan
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         function togglePw() {
@@ -522,12 +457,26 @@
         }
 
         function backToForm() {
-            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('resultSection').classList.remove('show', 'lulus-glow');
             document.getElementById('mainGrid').style.display = '';
             document.getElementById('loginSection').style.display = '';
             document.getElementById('inputNis').value = '';
             document.getElementById('inputPassword').value = '';
+
+            // Reset hero
+            document.getElementById('heroTitle').innerHTML = `Halo! 👋<br><span class="gradient-text italic">Siap Lihat Hasilmu? 🎓</span>`;
+            document.getElementById('heroSubtitle').textContent = 'Yuk cek hasil kelulusanmu di sini. Masukkan NIS dan password yang sudah diberikan ya.';
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function playConfetti() {
+            const end = Date.now() + 3000;
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 70, origin: { x: 0 } });
+                confetti({ particleCount: 5, angle: 120, spread: 70, origin: { x: 1 } });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            })();
         }
 
         document.getElementById('checkForm')?.addEventListener('submit', async function (e) {
@@ -557,37 +506,46 @@
                 }
 
                 const s = data.student;
+                console.log('tanggal_lahir:', s.tanggal_lahir);
+                console.log('tempat_lahir:', s.tempat_lahir);
+                console.log('student full:', s);
 
                 document.getElementById('resAvatar').textContent = (s.nama || '?').charAt(0).toUpperCase();
                 document.getElementById('resNama').textContent = s.nama;
                 document.getElementById('resNis').textContent = s.nis;
                 document.getElementById('resKelas').textContent = s.kelas;
-                document.getElementById('resTotalScore').textContent = s.total_score;
-                document.getElementById('resAvgScore').textContent = parseFloat(s.average_score).toFixed(2);
-                document.getElementById('resRanking').textContent = '#' + s.ranking;
-                document.getElementById('infoNama').textContent = s.nama;
-                document.getElementById('infoNis').textContent = s.nis;
-                document.getElementById('infoKelas').textContent = s.kelas;
+                document.getElementById('resTotalScore').textContent = s.total_score ?? '—';
+                document.getElementById('resAvgScore').textContent = s.average_score ? parseFloat(s.average_score).toFixed(2) : '—';
+                document.getElementById('resRanking').textContent = s.ranking ? '#' + s.ranking : '—';
+                document.getElementById('infoNisn').textContent = s.nisn || '-';
 
-                document.getElementById('infoNisn').textContent = s.nisn ?? '-';
-                document.getElementById('infoTTL').textContent =
-                    (s.tempat_lahir ?? '-') + ', ' + (s.tanggal_lahir ?? '-');
-                document.getElementById('infoOrtu').textContent = s.nama_orang_tua ?? '-';
-                document.getElementById('infoMapel').textContent = s.mapel ?? '-';
+                const tempat = s.tempat_lahir || '-';
+                const tgl = s.tanggal_lahir
+                    ? new Date(s.tanggal_lahir).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+                    : '-';
+                document.getElementById('infoTTL').textContent = tempat + ', ' + tgl;
+                document.getElementById('infoOrtu').textContent = s.nama_orang_tua || '-';
+                document.getElementById('infoMapel').textContent = s.mapel || '-';
 
                 const lulus = s.status === 'lulus';
 
-                if (lulus) {
+                const heroTitle = document.getElementById('heroTitle');
+                const heroSubtitle = document.getElementById('heroSubtitle');
 
-                    playConfetti();
-                    document.getElementById('resultSection').classList.add('lulus-glow');
+                if (lulus) {
+                    heroTitle.innerHTML = `Selamat! 🎉<br><span class="gradient-text italic">Kamu Dinyatakan Lulus! 🎓</span>`;
+                    heroSubtitle.textContent = ` Semangat untuk langkah berikutnya, ${s.nama.split(' ')[0]}!`;
+                } else {
+                    heroTitle.innerHTML = `Hai, ${s.nama.split(' ')[0]} 👋<br><span style="-webkit-text-fill-color:#dc2626;background:none">Belum Berhasil Kali Ini</span>`;
+                    heroSubtitle.textContent = 'Jangan menyerah. Tetap semangat dan terus berjuang untuk masa depanmu!';
                 }
+
                 document.getElementById('infoStatus').textContent = lulus ? 'LULUS' : 'TIDAK LULUS';
                 document.getElementById('infoStatus').style.color = lulus ? '#059669' : '#dc2626';
 
                 document.getElementById('resBadge').innerHTML = lulus
-                    ? `<span class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-[10px] sm:text-xs font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-check"></i> LULUS</span>`
-                    : `<span class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-red-50 border border-red-200 text-red-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-xmark"></i> TIDAK LULUS</span>`;
+                    ? `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-check text-[10px]"></i> LULUS</span>`
+                    : `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-[10px] font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-xmark text-[10px]"></i> TIDAK LULUS</span>`;
 
                 const dlBtn = document.getElementById('downloadBtn');
                 if (lulus) {
@@ -607,6 +565,11 @@
                     };
                 }
 
+                if (lulus) {
+                    playConfetti();
+                    document.getElementById('resultSection').classList.add('lulus-glow');
+                }
+
                 document.getElementById('mainGrid').style.display = 'none';
                 document.getElementById('resultSection').classList.add('show');
                 window.scrollTo({ top: document.getElementById('resultSection').offsetTop - 40, behavior: 'smooth' });
@@ -617,34 +580,6 @@
 
             setLoading(false);
         });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <script>
-        function playConfetti() {
-            const duration = 3000;
-            const end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 70,
-                    origin: { x: 0 }
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 70,
-                    origin: { x: 1 }
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            })();
-        }
     </script>
 
 </body>

@@ -6,7 +6,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 16px;
-            padding: 18px 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -60,13 +60,14 @@
         }
 
         .stat-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
+            flex-shrink: 0;
         }
 
         .stat-card.blue .stat-icon {
@@ -89,7 +90,6 @@
             color: #d97706;
         }
 
-        /* TABLE */
         #studentsTable_wrapper .dataTables_filter input,
         #studentsTable_wrapper .dataTables_length select {
             border: 1.5px solid #e5e7eb !important;
@@ -112,13 +112,13 @@
             letter-spacing: .06em !important;
             text-transform: uppercase !important;
             color: #64748b !important;
-            padding: 12px 14px !important;
+            padding: 11px 12px !important;
             border-bottom: 1px solid #e2e8f0 !important;
             white-space: nowrap;
         }
 
         #studentsTable tbody td {
-            padding: 11px 14px !important;
+            padding: 10px 12px !important;
             font-size: 13px !important;
             vertical-align: middle;
             border-bottom: 1px solid #f1f5f9 !important;
@@ -129,13 +129,11 @@
             background: #fafbff !important;
         }
 
-        /* Mobile table scroll */
         .table-responsive-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* BADGE */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -157,7 +155,6 @@
             color: #be123c;
         }
 
-        /* ACTION BUTTONS */
         .action-btn {
             width: 30px;
             height: 30px;
@@ -191,7 +188,6 @@
             color: #9f1239;
         }
 
-        /* TOP BUTTONS */
         .btn-outline-green {
             display: inline-flex;
             align-items: center;
@@ -254,55 +250,6 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, .45);
         }
 
-        /* Mobile: button group stacks */
-        @media (max-width: 640px) {
-            .page-header {
-                flex-direction: column;
-                align-items: stretch !important;
-                gap: 12px;
-            }
-
-            .page-header .btn-group {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-
-            .page-header .btn-group .btn-primary-indigo {
-                grid-column: 1 / -1;
-                justify-content: center;
-            }
-
-            .btn-outline-green,
-            .btn-outline-red,
-            .btn-primary-indigo {
-                justify-content: center;
-            }
-
-            .stat-card {
-                padding: 14px 16px;
-            }
-
-            .stat-card h3.text-3xl {
-                font-size: 1.6rem;
-            }
-
-            #studentsTable_wrapper .dataTables_filter,
-            #studentsTable_wrapper .dataTables_length {
-                width: 100%;
-            }
-
-            #studentsTable_wrapper .dataTables_filter input {
-                width: 100% !important;
-            }
-
-            #studentsTable_wrapper .dataTables_info,
-            #studentsTable_wrapper .dataTables_paginate {
-                font-size: 12px;
-            }
-        }
-
-        /* MODAL OVERLAY */
         .modal {
             position: fixed;
             inset: 0;
@@ -319,7 +266,6 @@
             display: flex;
         }
 
-        /* MODAL BOX */
         .modal-box {
             background: white;
             border-radius: 20px;
@@ -347,27 +293,26 @@
             }
         }
 
-        /* MODAL HEADER */
         .modal-header {
-            padding: 20px 24px 0;
+            padding: 20px 22px 0;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
         }
 
         .modal-header-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            margin-bottom: 8px;
         }
 
         .modal-header h3 {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #0f172a;
         }
@@ -399,45 +344,20 @@
             color: #0f172a;
         }
 
-        /* MODAL BODY */
         .modal-body {
-            padding: 16px 24px;
+            padding: 14px 22px;
         }
 
         .modal-footer {
-            padding: 14px 24px 20px;
+            padding: 12px 22px 18px;
             display: flex;
             justify-content: flex-end;
             gap: 10px;
             border-top: 1px solid #f1f5f9;
         }
 
-        /* Responsive modal grid */
-        @media (max-width: 480px) {
-            .modal-box {
-                border-radius: 16px;
-            }
-
-            .modal-header {
-                padding: 16px 18px 0;
-            }
-
-            .modal-body {
-                padding: 12px 18px;
-            }
-
-            .modal-footer {
-                padding: 12px 18px 18px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-
-        /* FORM */
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 13px;
         }
 
         .form-label {
@@ -459,7 +379,6 @@
             background: white;
             transition: border-color .2s, box-shadow .2s;
             outline: none;
-            font-family: 'Plus Jakarta Sans', sans-serif;
             box-sizing: border-box;
         }
 
@@ -478,12 +397,11 @@
             gap: 0 14px;
         }
 
-        /* DIVIDER */
         .form-divider {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 16px 0 12px;
+            margin: 14px 0 10px;
         }
 
         .form-divider span {
@@ -503,7 +421,6 @@
             background: #e5e7eb;
         }
 
-        /* MODAL BUTTONS */
         .mbtn {
             padding: 8px 18px;
             border-radius: 10px;
@@ -512,7 +429,6 @@
             cursor: pointer;
             border: none;
             transition: all .2s;
-            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .mbtn-cancel {
@@ -546,12 +462,11 @@
             box-shadow: 0 4px 12px rgba(22, 163, 74, .4);
         }
 
-        /* IMPORT */
         .import-step {
             border: 1.5px solid #e5e7eb;
             border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
             transition: border-color .2s;
         }
 
@@ -563,20 +478,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 8px;
+            width: 22px;
+            height: 22px;
+            border-radius: 7px;
             font-size: 11px;
             font-weight: 800;
             background: #eef2ff;
             color: #6366f1;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
         .upload-zone {
             border: 2px dashed #c7d2fe;
             border-radius: 12px;
-            padding: 24px 16px;
+            padding: 22px 16px;
             text-align: center;
             background: #fafbff;
             cursor: pointer;
@@ -588,7 +503,6 @@
             border-color: #818cf8;
         }
 
-        /* SCROLLBAR */
         .modal-box::-webkit-scrollbar {
             width: 4px;
         }
@@ -602,57 +516,80 @@
             border-radius: 4px;
         }
 
-        /* DataTables mobile tweaks */
-        @media (max-width: 768px) {
-            #studentsTable_wrapper .dataTables_filter {
-                text-align: left;
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 0;
             }
 
-            #studentsTable_wrapper .row {
-                margin: 0;
+            .modal-box {
+                border-radius: 16px;
+            }
+
+            .modal-header {
+                padding: 14px 16px 0;
+            }
+
+            .modal-body {
+                padding: 10px 16px;
+            }
+
+            .modal-footer {
+                padding: 10px 16px 16px;
+            }
+
+            #studentsTable_wrapper .dataTables_filter,
+            #studentsTable_wrapper .dataTables_length {
+                width: 100%;
+            }
+
+            #studentsTable_wrapper .dataTables_filter input {
+                width: 100% !important;
+            }
+
+            #studentsTable_wrapper .dataTables_info,
+            #studentsTable_wrapper .dataTables_paginate {
+                font-size: 12px;
             }
         }
     </style>
 
-    <div class="space-y-5">
+    <div class="space-y-4 sm:space-y-5">
 
-        {{-- PAGE HEADER --}}
-        <div class="page-header flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-                <h2 class="text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
+                <h2 class="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
                 <p class="text-xs text-gray-400 mt-0.5">Manajemen data, nilai & status kelulusan siswa</p>
             </div>
-
-            <div class="btn-group flex flex-wrap items-center gap-2">
-                <button onclick="openModal('importModal')" class="btn-outline-green">
-                    <i class="fa-solid fa-file-excel text-[12px]"></i> Import Excel
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+                <button onclick="openModal('importModal')" class="btn-outline-green justify-center">
+                    <i class="fa-solid fa-file-excel text-[12px]"></i>Import Excel
                 </button>
-                <button onclick="resetData()" class="btn-outline-red">
-                    <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i> Reset Data
+                <button onclick="resetData()" class="btn-outline-red justify-center">
+                    <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i>Reset Data
                 </button>
                 <form id="reset-form" method="POST" action="{{ route('students.reset') }}" class="hidden">
                     @csrf @method('DELETE')
                 </form>
-                <button onclick="openModal('addModal')" class="btn-primary-indigo">
+                <button onclick="openModal('addModal')" class="btn-primary-indigo col-span-2 sm:col-span-1 justify-center">
                     <i class="fa-solid fa-plus text-[11px]"></i> Tambah Siswa
                 </button>
             </div>
         </div>
 
-        {{-- STAT CARDS --}}
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             <div class="stat-card blue">
                 <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
                 <div>
-                    <p class="text-xs font-600 text-blue-600 mb-0.5">Total Siswa</p>
-                    <h3 class="text-3xl font-800 text-blue-700 leading-none">{{ $students->count() }}</h3>
+                    <p class="text-xs font-semibold text-blue-600 mb-0.5">Total Siswa</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-blue-700 leading-none">{{ $students->count() }}</h3>
                 </div>
             </div>
             <div class="stat-card green">
                 <div class="stat-icon"><i class="fa-solid fa-check"></i></div>
                 <div>
-                    <p class="text-xs font-600 text-green-600 mb-0.5">Lulus</p>
-                    <h3 class="text-3xl font-800 text-green-700 leading-none">
+                    <p class="text-xs font-semibold text-green-600 mb-0.5">Lulus</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-green-700 leading-none">
                         {{ $students->where('status', 'lulus')->count() }}
                     </h3>
                 </div>
@@ -660,8 +597,8 @@
             <div class="stat-card red">
                 <div class="stat-icon"><i class="fa-solid fa-xmark"></i></div>
                 <div>
-                    <p class="text-xs font-600 text-red-600 mb-0.5">Tidak Lulus</p>
-                    <h3 class="text-3xl font-800 text-red-700 leading-none">
+                    <p class="text-xs font-semibold text-red-600 mb-0.5">Tidak Lulus</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-red-700 leading-none">
                         {{ $students->where('status', 'tidak_lulus')->count() }}
                     </h3>
                 </div>
@@ -669,41 +606,42 @@
             <div class="stat-card amber">
                 <div class="stat-icon"><i class="fa-solid fa-percent"></i></div>
                 <div>
-                    <p class="text-xs font-600 text-amber-600 mb-0.5">Tingkat Kelulusan</p>
+                    <p class="text-xs font-semibold text-amber-600 mb-0.5">Kelulusan</p>
                     @php
                         $total = $students->count();
                         $lulus = $students->where('status', 'lulus')->count();
                         $pct = $total > 0 ? round($lulus / $total * 100) : 0;
                     @endphp
-                    <h3 class="text-3xl font-800 text-amber-700 leading-none">{{ $pct }}<span class="text-lg">%</span></h3>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-amber-700 leading-none">
+                        {{ $pct }}<span class="text-base sm:text-lg">%</span>
+                    </h3>
                 </div>
             </div>
         </div>
 
-        {{-- TABLE CARD --}}
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div class="px-4 sm:px-5 py-3 sm:py-4 border-b border-gray-100 flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <div class="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
                         <i class="fa-solid fa-table-list text-indigo-500 text-xs"></i>
                     </div>
                     <div>
-                        <h4 class="text-sm font-700 text-gray-800">Daftar Siswa</h4>
+                        <h4 class="text-sm font-bold text-gray-800">Daftar Siswa</h4>
                         <p class="text-[11px] text-gray-400">{{ $students->count() }} siswa terdaftar</p>
                     </div>
                 </div>
             </div>
-            <div class="p-4 sm:p-6">
+            <div class="p-3 sm:p-5">
                 <div class="table-responsive-wrapper">
-                    <table class="w-full text-sm" id="studentsTable">
+                    <table class="w-full text-sm" id="studentsTable" style="min-width:700px">
                         <thead>
                             <tr>
-                                <th>Ranking</th>
+                                <th>#</th>
                                 <th>Siswa</th>
                                 <th>Kelahiran</th>
                                 <th>Orang Tua</th>
-                                <th>Akademik (Mapel)</th>
-                                <th>Nilai (Total/Avg)</th>
+                                <th>Mapel</th>
+                                <th>Nilai</th>
                                 <th>Status</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -711,56 +649,41 @@
                         <tbody>
                             @foreach ($students as $s)
                                 <tr>
-                                    <!-- Ranking -->
                                     <td class="text-center">
                                         <span class="flex items-center justify-center gap-1">
-                                            <span class="text-amber-500 text-xs"><i class="fa-solid fa-trophy"></i></span>
-                                            <span class="font-800 text-lg">#{{ $s->ranking }}</span>
+                                            <i class="fa-solid fa-trophy text-amber-400 text-[10px]"></i>
+                                            <span class="font-bold text-base">#{{ $s->ranking }}</span>
                                         </span>
                                     </td>
-
-                                    <!-- Siswa (NIS, NISN, Nama, Kelas) -->
                                     <td>
-                                        <div class="font-700 text-gray-900">{{ $s->nama }}</div>
-                                        <div class="text-[10px] text-gray-500 font-mono">
-                                            NIS: {{ $s->nis }} | NISN: {{ $s->nisn }}
+                                        <div class="font-semibold text-gray-900 text-[13px]">{{ $s->nama }}</div>
+                                        <div class="text-[10px] text-gray-400 font-mono mt-0.5">
+                                            {{ $s->nis }} · {{ $s->nisn }}
                                         </div>
                                         <span
-                                            class="bg-indigo-50 text-indigo-600 text-[10px] font-700 px-1.5 py-0.5 rounded mt-1 inline-block uppercase">
+                                            class="bg-indigo-50 text-indigo-600 text-[10px] font-semibold px-1.5 py-0.5 rounded mt-1 inline-block uppercase">
                                             {{ $s->kelas }}
                                         </span>
                                     </td>
-
-                                    <!-- Kelahiran -->
                                     <td>
-                                        <div class="text-gray-700">{{ $s->tempat_lahir }}</div>
-                                        <div class="text-[11px] text-gray-400">
-                                            <i class="fa-regular fa-calendar-days mr-1"></i>
-                                            {{ $s->tanggal_lahir ? $s->tanggal_lahir : '-' }}
+                                        <div class="text-[13px] text-gray-700">{{ $s->tempat_lahir ?? '-' }}</div>
+                                        <div class="text-[11px] text-gray-400 mt-0.5">
+                                            {{ $s->tanggal_lahir ?? '-' }}
                                         </div>
                                     </td>
-
-                                    <!-- Orang Tua -->
-                                    <td class="text-gray-600 italic">
-                                        {{ $s->nama_orang_tua ?? '-' }}
-                                    </td>
-
-                                    <!-- Mapel -->
+                                    <td class="text-gray-500 text-[13px] italic">{{ $s->nama_orang_tua ?? '-' }}</td>
                                     <td>
-                                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-500">
+                                        <span
+                                            class="text-[11px] bg-slate-100 px-2 py-1 rounded text-slate-600 font-medium leading-tight block max-w-[140px]">
                                             {{ $s->mapel ?? 'Semua Mapel' }}
                                         </span>
                                     </td>
-
-                                    <!-- Nilai -->
                                     <td>
-                                        <div class="font-700 text-gray-800">{{ $s->total_score }}</div>
-                                        <div class="text-[11px] text-indigo-500 font-600">
-                                            Avg: {{ number_format($s->average_score, 2) }}
+                                        <div class="font-bold text-gray-800 text-[13px]">{{ $s->total_score }}</div>
+                                        <div class="text-[11px] text-indigo-500 font-semibold">
+                                            {{ number_format($s->average_score, 2) }}
                                         </div>
                                     </td>
-
-                                    <!-- Status -->
                                     <td>
                                         @if ($s->isLulus())
                                             <span class="badge badge-lulus"><i class="fa-solid fa-circle-check"></i> LULUS</span>
@@ -768,8 +691,6 @@
                                             <span class="badge badge-gagal"><i class="fa-solid fa-circle-xmark"></i> GAGAL</span>
                                         @endif
                                     </td>
-
-                                    <!-- Aksi -->
                                     <td>
                                         <div class="flex items-center justify-center gap-1.5">
                                             <button onclick="openModal('edit{{ $s->id }}')" class="action-btn edit">
@@ -819,7 +740,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Kelas</label>
-                        <input name="kelas" class="form-control" placeholder="Contoh: XII‑IPA 2" required>
+                        <input name="kelas" class="form-control" placeholder="Contoh: XII IPA 2" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -828,7 +749,6 @@
                 </div>
 
                 <div class="form-divider"><span>Data Tambahan</span></div>
-
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label">NISN</label>
@@ -839,7 +759,6 @@
                         <input name="mapel" class="form-control" placeholder="Contoh: Matematika">
                     </div>
                 </div>
-
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label">Tempat Lahir</label>
@@ -850,7 +769,6 @@
                         <input type="date" name="tanggal_lahir" class="form-control">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">Nama Orang Tua</label>
                     <input name="nama_orang_tua" class="form-control" placeholder="Nama orang tua">
@@ -864,7 +782,7 @@
                             required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Rata‑rata Nilai</label>
+                        <label class="form-label">Rata-rata Nilai</label>
                         <input name="average_score" class="form-control" type="number" step="0.01" placeholder="0.00"
                             required>
                     </div>
@@ -886,7 +804,7 @@
             <div class="modal-footer">
                 <button type="button" onclick="closeModal('addModal')" class="mbtn mbtn-cancel">Batal</button>
                 <button type="submit" class="mbtn mbtn-save">
-                    <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Data
+                    <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan
                 </button>
             </div>
         </form>
@@ -911,28 +829,29 @@
             <div class="modal-body">
                 <div class="import-step">
                     <div class="step-badge">1</div>
-                    <h6 class="text-sm font-700 text-gray-800 mb-1">Download Template</h6>
+                    <h6 class="text-sm font-bold text-gray-800 mb-1">Download Template</h6>
                     <p class="text-xs text-gray-500 mb-3">Gunakan template resmi agar format kolom sesuai sistem.</p>
                     <a href="{{ route('students.template') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-xs font-600 hover:bg-green-700 transition-colors"
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-xs font-semibold hover:bg-green-700 transition-colors"
                         style="border-radius:10px; text-decoration:none;">
-                        <i class="fa-solid fa-file-arrow-down"></i> Download Template Excel
+                        <i class="fa-solid fa-file-arrow-down"></i> Download Template
                     </a>
                 </div>
                 <div class="import-step">
                     <div class="step-badge">2</div>
-                    <h6 class="text-sm font-700 text-gray-800 mb-3">Upload File Excel</h6>
+                    <h6 class="text-sm font-bold text-gray-800 mb-3">Upload File Excel</h6>
                     <div class="upload-zone" onclick="document.getElementById('excelFile').click()">
-                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-300 mb-3"></i>
-                        <p class="text-sm font-600 text-gray-700">Klik untuk pilih file</p>
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-indigo-300 mb-3 block"></i>
+                        <p class="text-sm font-semibold text-gray-700">Klik untuk pilih file</p>
                         <p class="text-xs text-gray-400 mt-1">Format: <b>.xlsx</b> atau <b>.xls</b></p>
                         <input type="file" id="excelFile" name="file" accept=".xlsx,.xls" required class="hidden"
                             onchange="updateFileName(this)">
                     </div>
-                    <p id="fileName" class="text-xs text-indigo-600 font-600 mt-2 hidden"></p>
+                    <p id="fileName" class="text-xs text-indigo-600 font-semibold mt-2 hidden"></p>
                     <div class="flex flex-wrap gap-2 mt-3">
-                        @foreach(['NIS', 'Nama', 'Kelas', 'Total Nilai', 'Rata‑rata', 'Ranking', 'Status'] as $col)
-                            <span class="text-[11px] font-600 bg-gray-100 text-gray-500 px-2 py-1 rounded-lg">{{ $col }}</span>
+                        @foreach(['NIS', 'Nama', 'Kelas', 'Total Nilai', 'Rata-rata', 'Ranking', 'Status'] as $col)
+                            <span
+                                class="text-[11px] font-semibold bg-gray-100 text-gray-500 px-2 py-1 rounded-lg">{{ $col }}</span>
                         @endforeach
                     </div>
                 </div>
@@ -940,13 +859,13 @@
             <div class="modal-footer">
                 <button type="button" onclick="closeModal('importModal')" class="mbtn mbtn-cancel">Batal</button>
                 <button type="submit" id="btnImport" class="mbtn mbtn-green">
-                    <svg id="importSpinner" class="hidden w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg"
+                    <svg id="importSpinner" class="hidden w-4 h-4 animate-spin mr-1" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                         <path class="opacity-75" fill="currentColor"
                             d="M4 12a8 8 0 018-8v4l3-3-3-3v4a12 12 0 00-12 12h4z" />
                     </svg>
-                    <i id="importIcon" class="fa-solid fa-upload"></i>
+                    <i id="importIcon" class="fa-solid fa-upload mr-1"></i>
                     <span id="importText">Import Sekarang</span>
                 </button>
             </div>
@@ -988,7 +907,6 @@
                     </div>
 
                     <div class="form-divider"><span>Data Tambahan</span></div>
-
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">NISN</label>
@@ -999,7 +917,6 @@
                             <input name="mapel" class="form-control" value="{{ $s->mapel }}">
                         </div>
                     </div>
-
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">Tempat Lahir</label>
@@ -1010,11 +927,11 @@
                             <input type="date" name="tanggal_lahir" class="form-control" value="{{ $s->tanggal_lahir }}">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="form-label">Nama Orang Tua</label>
                         <input name="nama_orang_tua" class="form-control" value="{{ $s->nama_orang_tua }}">
                     </div>
+
                     <div class="form-divider"><span>Nilai & Peringkat</span></div>
                     <div class="form-grid">
                         <div class="form-group">
@@ -1023,7 +940,7 @@
                                 value="{{ $s->total_score }}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Rata‑rata Nilai</label>
+                            <label class="form-label">Rata-rata Nilai</label>
                             <input name="average_score" class="form-control" type="number" step="0.01"
                                 value="{{ $s->average_score }}">
                         </div>
@@ -1046,7 +963,7 @@
                 <div class="modal-footer">
                     <button type="button" onclick="closeModal('edit{{ $s->id }}')" class="mbtn mbtn-cancel">Batal</button>
                     <button type="submit" class="mbtn mbtn-save">
-                        <i class="fa-solid fa-floppy-disk mr-1"></i> Update Data
+                        <i class="fa-solid fa-floppy-disk mr-1"></i> Update
                     </button>
                 </div>
             </form>
@@ -1060,7 +977,7 @@
         $(document).ready(function () {
             $('#studentsTable').DataTable({
                 pageLength: 10,
-                order: [[6, 'asc']],
+                order: [[0, 'asc']],
                 scrollX: false,
                 language: {
                     search: '',
@@ -1081,7 +998,10 @@
 
         function updateFileName(input) {
             const el = document.getElementById('fileName');
-            if (input.files.length) { el.textContent = '📎 ' + input.files[0].name; el.classList.remove('hidden'); }
+            if (input.files.length) {
+                el.textContent = '📎 ' + input.files[0].name;
+                el.classList.remove('hidden');
+            }
         }
 
         document.querySelector('#importModal form')?.addEventListener('submit', function () {
@@ -1104,7 +1024,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#dc2626',
                 cancelButtonColor: '#94a3b8',
-                confirmButtonText: 'Ya, Reset Sekarang',
+                confirmButtonText: 'Ya, Reset',
                 cancelButtonText: 'Batal',
                 customClass: { popup: 'rounded-2xl' }
             }).then(r => { if (r.isConfirmed) document.getElementById('reset-form').submit(); });

@@ -16,7 +16,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
     public function headings(): array
     {
         return [
-            'username',
+            'nis',
             'nisn',
             'password',
             'nama',
@@ -106,29 +106,6 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
         $sheet->getStyle("J2:L{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        foreach (range(2, $lastRow) as $row) {
-            $status = strtolower(trim($sheet->getCell("M{$row}")->getValue()));
-
-            if ($status === 'lulus') {
-                $sheet->getStyle("M{$row}")->applyFromArray([
-                    'font' => ['bold' => true],
-                    'fill' => [
-                        'fillType' => Fill::FILL_SOLID,
-                        'startColor' => ['rgb' => 'DCFCE7'],
-                    ],
-                ]);
-            }
-
-            if ($status === 'tidak_lulus') {
-                $sheet->getStyle("M{$row}")->applyFromArray([
-                    'font' => ['bold' => true],
-                    'fill' => [
-                        'fillType' => Fill::FILL_SOLID,
-                        'startColor' => ['rgb' => 'FEE2E2'],
-                    ],
-                ]);
-            }
-        }
 
         $sheet->freezePane('A2');
     }

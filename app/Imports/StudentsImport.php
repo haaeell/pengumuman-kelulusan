@@ -45,7 +45,7 @@ class StudentsImport implements
         };
 
         return new Student([
-            'nis'            => $row['username'],
+            'nis'            => $row['nis'],
             'nisn'           => $row['nisn'] ?? null,
             'nama'           => $row['nama'],
             'kelas'          => $row['kelas'],
@@ -65,7 +65,7 @@ class StudentsImport implements
     public function rules(): array
     {
         return [
-            'username'        => 'required',
+            'nis'        => 'required',
             'nisn'            => 'required',
             'nama'            => 'required',
             'kelas'           => 'required',

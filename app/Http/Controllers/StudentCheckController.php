@@ -68,7 +68,7 @@ class StudentCheckController extends Controller
                 'nama'            => $student->nama,
                 'kelas'           => $student->kelas,
                 'tempat_lahir'    => $student->tempat_lahir,
-                'tanggal_lahir'   => optional($student->tanggal_lahir)->format('Y-m-d'),
+                'tanggal_lahir'   => $student->tanggal_lahir,
                 'nama_orang_tua'  => $student->nama_orang_tua,
                 'mapel'           => $student->mapel,
 
