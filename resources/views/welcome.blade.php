@@ -605,7 +605,7 @@
 
                 document.getElementById('mainGrid').style.display = 'none';
                 document.getElementById('resultSection').classList.add('show');
-                window.scrollTo({ top: document.getElementById('resultSection').offsetTop - 40, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (err) {
                 showError('Terjadi kesalahan. Coba lagi nanti.');
