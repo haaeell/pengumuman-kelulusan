@@ -22,29 +22,34 @@
 
         .footer {
             position: fixed;
-            bottom: 0;
+            bottom: 30px;
+            /* sebelumnya 0 */
             left: 0;
             right: 0;
-            background-color: #1b3c8b;
-            color: #fff;
             text-align: center;
-            padding: 8px 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-bar {
+            width: 100%;
+            background-color: #6f7fb3;
+            /* fallback untuk dompdf */
+            padding: 10px 0;
+            margin-bottom: 6px;
         }
 
         .footer-tagline {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 20pt;
+            font-size: 18pt;
             font-weight: bold;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-            line-height: 1.2;
+            letter-spacing: 2px;
+            color: #fff;
+            /* ganti jadi putih */
         }
 
         .footer-detail {
             font-family: 'DejaVu Sans', Arial, sans-serif;
             font-size: 10pt;
-            margin-bottom: 1px;
             line-height: 1.2;
         }
 
@@ -52,79 +57,87 @@
             padding: 18px 45px 105px 45px;
         }
 
-        /* ===== KOP SURAT ===== */
         .kop {
+            position: relative;
             width: 100%;
-            border-collapse: collapse;
+            height: 210px;
         }
 
-        .kop td {
-            padding: 0;
-            vertical-align: middle;
-        }
-
-        .kop .td-logo {
-            width: 110px;
+        .kop-logo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 120px;
             text-align: center;
-            vertical-align: middle;
+            padding-left: 10px;
         }
 
-        .kop .td-teks {
+        .kop-logo img {
+            width: 230px;
+            height: 230px;
+            margin-top: 30px;
+        }
+
+        .kop-teks {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
             text-align: center;
-            vertical-align: middle;
-            padding-left: 6px;
+            width: 100%;
         }
 
         .t-yayasan {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 13pt;
-            letter-spacing: 2px;
+            font-family: Arial, sans-serif;
+            font-size: 14pt;
+            font-weight: bold;
+            letter-spacing: -1px;
             text-transform: uppercase;
-            line-height: 1.3;
+            line-height: 1;
+            padding-top: 30px;
         }
 
         .t-sekolah {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 23pt;
-            font-weight: bold;
-            letter-spacing: 1px;
-            line-height: 1.2;
+            font-family: Arial, sans-serif;
+            font-size: 24pt;
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 0.9;
         }
 
         .t-kampus {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 8.5pt;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
             font-weight: bold;
             letter-spacing: 0.5px;
             margin-top: 2px;
-            line-height: 1.3;
         }
 
         .t-alamat {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 8pt;
-            margin-top: 3px;
-            line-height: 1.4;
+            font-family: Arial, sans-serif;
+            font-size: 9pt;
+            margin-top: 4px;
+            line-height: 1;
         }
 
         .t-akreditasi {
-            font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 8.5pt;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
             font-weight: bold;
-            margin-top: 2px;
-            line-height: 1.3;
+            margin-top: 4px;
+            line-height: 1;
         }
 
         hr.garis-kop {
             border: none;
-            border-top: 3px solid #000;
-            margin: 10px 0 0 0;
+            height: 4px;
+            background-color: #8fa1c7;
+            margin: 12px 0 0 0;
         }
 
-        /* ===== JUDUL ===== */
         .judul {
             text-align: center;
-            margin: 14px 0 16px 0;
+            margin: 16px 0 16px 0;
         }
 
         .judul-text {
@@ -133,36 +146,29 @@
             font-weight: bold;
             text-decoration: underline;
             letter-spacing: 2px;
-            line-height: 1.2;
         }
 
-        /* ===== ISI ===== */
         .pembuka {
             font-size: 10pt;
-            line-height: 1.2;
             margin-bottom: 4px;
         }
 
         .daftar td {
             font-size: 10pt;
-            line-height: 1.2;
         }
 
         .menerangkan {
             font-size: 10pt;
-            line-height: 1.2;
             margin-bottom: 2px;
         }
 
         .biodata {
             width: 100%;
             border-collapse: collapse;
-            margin-left: 0;
         }
 
         .biodata td {
             font-size: 10pt;
-            line-height: 1.2;
             padding: 0;
             vertical-align: top;
         }
@@ -177,23 +183,10 @@
             width: 16px;
         }
 
-        .b-val {
-            white-space: normal;
-        }
-
-        /* ===== TTD ===== */
         .ttd {
             width: 100%;
             border-collapse: collapse;
             margin-top: 16px;
-        }
-
-        .ttd td {
-            vertical-align: top;
-        }
-
-        .td-kiri {
-            width: 50%;
         }
 
         .td-kanan {
@@ -202,17 +195,11 @@
         }
 
         .ttd-kota {
-            text-align: center;
-            margin-bottom: 1px;
-            font-size: 10pt;
-            line-height: 1.2;
+            margin-bottom: 2px;
         }
 
         .ttd-jabatan {
-            text-align: center;
-            margin-bottom: 2px;
-            font-size: 10pt;
-            line-height: 1.2;
+            margin-bottom: 4px;
         }
 
         .ttd-gambar {
@@ -224,30 +211,25 @@
 
         .ttd-gambar img.g-cap {
             position: absolute;
-            width: 1.95in;
-            left: -300px;
+            width: 1.9in;
+            left: -270px;
             top: -150px;
         }
 
         .ttd-gambar img.g-ttd {
             position: absolute;
-            width: 3.49in;
+            width: 3.4in;
             left: -200px;
             top: -320px;
         }
 
         .ttd-nama {
             font-weight: bold;
-            text-align: center;
-            font-size: 10pt;
-            margin-top: 2px;
-            line-height: 1.2;
+            margin-top: 4px;
         }
 
         .ttd-nip {
-            text-align: center;
             font-size: 10pt;
-            line-height: 1.2;
         }
 
         .ket {
@@ -255,11 +237,6 @@
             border-top: 1px solid #000;
             padding-top: 5px;
             font-size: 10pt;
-            line-height: 1.2;
-        }
-
-        p {
-            margin: 0;
         }
     </style>
 </head>
@@ -267,39 +244,42 @@
 <body>
 
     <div class="footer">
-        <div class="footer-tagline">Commited to The Leader Education Quality</div>
-        <div class="footer-detail">Jl. Raya Binong No. 65 Binong &ndash; Subang Jawa Barat Kode Pos 41253</div>
-        <div class="footer-detail">Email : smapnasofficial@gmail.com &nbsp; Web. http://asthahannas.com</div>
+        <div class="footer-bar">
+            <div class="footer-tagline">COMMITED TO THE LEADER EDUCATION QUALITY</div>
+        </div>
+        <div class="footer-detail">Jl. Raya Binong No. 65 Binong – Subang Jawa Barat Kode Pos 41253</div>
+        <div class="footer-detail">
+            Email :<span style="color:#0000FF;">smapnasofficial@gmail.com</span> &nbsp;
+            Web. <span style="color:#0000FF;">http://asthahannas.com</span>
+        </div>
     </div>
 
     <div class="page">
 
-        <!-- ===== KOP SURAT SVG ===== -->
-        <table class="kop">
-            <tr>
-                <td class="td-logo">
-                    <img src="{{ $logo_url }}" alt="Logo" style="width:150px;height:150px;">
-                </td>
-                <td class="td-teks">
-                    <div class="t-yayasan">Yayasan Astha Hannas</div>
-                    <div class="t-sekolah">SMA PLUS ASTHA HANNAS</div>
-                    <div class="t-kampus">KAMPUS PEMBANGUNAN KARAKTER BANGSA INDONESIA</div>
-                    <div class="t-alamat">
-                        SK. Dinas Pendidikan Kabupaten Subang, Jawa Barat No. 820/012/Disdik/2005<br>
-                        NIS. 300330 &nbsp; NSS. 302021999665 &nbsp; NPSN. 20233663
-                    </div>
-                    <div class="t-akreditasi">AKREDITASI &ldquo;A&rdquo;</div>
-                </td>
-            </tr>
-        </table>
+        <div class="kop">
+            <div class="kop-logo">
+                <img src="{{ $logo_url }}">
+            </div>
+
+            <div class="kop-teks">
+                <div class="t-yayasan">YAYASAN ASTHA HANNAS</div>
+                <div class="t-sekolah">SMA PLUS ASTHA HANNAS</div>
+                <div class="t-kampus">KAMPUS PEMBANGUNAN KARAKTER BANGSA INDONESIA</div>
+                <div class="t-alamat">
+                    SK. Dinas Pendidikan Kabupaten Subang, Jawa Barat No. 820/012/Disdik/2005<br>
+                    NIS. 300330 &nbsp; NSS. 302021999665 &nbsp; NPSN. 20233663
+                </div>
+                <div class="t-akreditasi">AKREDITASI "A"</div>
+            </div>
+        </div>
 
         <hr class="garis-kop">
 
         <div class="judul">
             <span class="judul-text">SURAT KETERANGAN LULUS</span>
         </div>
-        <br><br>
 
+        <br><br>
         <p class="pembuka">
             Kepala Sekolah Menengah Atas Plus Astha Hannas Tahun Pelajaran {{ $school_year }}, dengan berdasarkan:
         </p>
@@ -361,7 +341,7 @@
                 <tr>
                     <td class="b-label">dengan Rata-rata Nilai*</td>
                     <td class="b-sep">:</td>
-                    <td class="b-val"><strong>{{ number_format($student->rata_rata_nilai, 3, ',', '.') }}</strong></td>
+                    <td class="b-val"><strong>{{ number_format($student->average_score, 2, ',', '.') }}</strong></td>
                 </tr>
             </table>
         </div>
