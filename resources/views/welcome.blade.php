@@ -430,6 +430,35 @@
                                 class="fa-solid fa-school w-3.5 text-center text-xs"></i> Kelas</span>
                         <span id="infoKelas" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
                     </div>
+
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
+                            <i class="fa-solid fa-id-card-clip w-3.5 text-center text-xs"></i> NISN
+                        </span>
+                        <span id="infoNisn" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot w-3.5 text-center text-xs"></i> Tempat, Tanggal Lahir
+                        </span>
+                        <span id="infoTTL" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
+                            <i class="fa-solid fa-user-group w-3.5 text-center text-xs"></i> Orang Tua
+                        </span>
+                        <span id="infoOrtu" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+
+                    <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
+                        <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2">
+                            <i class="fa-solid fa-book w-3.5 text-center text-xs"></i> Mapel Pilihan
+                        </span>
+                        <span id="infoMapel" class="text-xs sm:text-sm font-semibold text-gray-800">—</span>
+                    </div>
+
                     <div class="px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between gap-3">
                         <span class="text-xs sm:text-sm text-gray-400 flex items-center gap-2 flex-shrink-0"><i
                                 class="fa-solid fa-circle-info w-3.5 text-center text-xs"></i> Status Kelulusan</span>
@@ -539,6 +568,12 @@
                 document.getElementById('infoNama').textContent = s.nama;
                 document.getElementById('infoNis').textContent = s.nis;
                 document.getElementById('infoKelas').textContent = s.kelas;
+
+                document.getElementById('infoNisn').textContent = s.nisn ?? '-';
+                document.getElementById('infoTTL').textContent =
+                    (s.tempat_lahir ?? '-') + ', ' + (s.tanggal_lahir ?? '-');
+                document.getElementById('infoOrtu').textContent = s.nama_orang_tua ?? '-';
+                document.getElementById('infoMapel').textContent = s.mapel ?? '-';
 
                 const lulus = s.status === 'lulus';
 

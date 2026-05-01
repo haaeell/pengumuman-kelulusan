@@ -20,14 +20,21 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis'           => 'required|unique:students',
-            'nama'          => 'required',
-            'kelas'         => 'required',
-            'total_score'   => 'required|numeric|min:0',
-            'average_score' => 'required|numeric|min:0|max:100',
-            'ranking'       => 'required|integer|min:1',
+            'nis'            => 'required|unique:students',
+            'nisn'           => 'required|unique:students',
+            'nama'           => 'required',
+            'kelas'          => 'required',
+            'tempat_lahir'   => 'required',
+            'tanggal_lahir'  => 'required|date',
+            'nama_orang_tua' => 'required',
+            'mapel'          => 'nullable|string',
+
+            'total_score'    => 'required|numeric|min:0',
+            'average_score'  => 'required|numeric|min:0|max:100',
+            'ranking'        => 'required|integer|min:1',
         ], [
             'nis.unique' => 'NIS tidak boleh sama',
+            'nisn.unique' => 'NISN tidak boleh sama',
             'ranking.min' => 'Ranking minimal 1',
             'average_score.max' => 'Nilai rata-rata tidak boleh lebih dari 100',
             'total_score.min' => 'Total nilai tidak boleh kurang dari 0',
@@ -36,8 +43,13 @@ class StudentController extends Controller
 
         Student::create([
             'nis'            => $request->nis,
+            'nisn'           => $request->nisn,
             'nama'           => $request->nama,
             'kelas'          => $request->kelas,
+            'tempat_lahir'   => $request->tempat_lahir,
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'nama_orang_tua' => $request->nama_orang_tua,
+            'mapel'          => $request->mapel,
 
             'total_score'    => $request->total_score,
             'average_score'  => $request->average_score,
@@ -52,14 +64,21 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $request->validate([
-            'nis'           => 'required|unique:students,nis,' . $student->id,
-            'nama'          => 'required',
-            'kelas'         => 'required',
-            'total_score'   => 'required|numeric|min:0',
-            'average_score' => 'required|numeric|min:0|max:100',
-            'ranking'       => 'required|integer|min:1',
+            'nis'            => 'required|unique:students,nis,' . $student->id,
+            'nisn'           => 'required|unique:students,nisn,' . $student->id,
+            'nama'           => 'required',
+            'kelas'          => 'required',
+            'tempat_lahir'   => 'required',
+            'tanggal_lahir'  => 'required|date',
+            'nama_orang_tua' => 'required',
+            'mapel'          => 'nullable|string',
+
+            'total_score'    => 'required|numeric|min:0',
+            'average_score'  => 'required|numeric|min:0|max:100',
+            'ranking'        => 'required|integer|min:1',
         ], [
             'nis.unique' => 'NIS tidak boleh sama',
+            'nisn.unique' => 'NISN tidak boleh sama',
             'ranking.min' => 'Ranking minimal 1',
             'average_score.max' => 'Nilai rata-rata tidak boleh lebih dari 100',
             'total_score.min' => 'Total nilai tidak boleh kurang dari 0',
@@ -76,8 +95,13 @@ class StudentController extends Controller
 
         $student->update([
             'nis'            => $request->nis,
+            'nisn'           => $request->nisn,
             'nama'           => $request->nama,
             'kelas'          => $request->kelas,
+            'tempat_lahir'   => $request->tempat_lahir,
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'nama_orang_tua' => $request->nama_orang_tua,
+            'mapel'          => $request->mapel,
 
             'total_score'    => $request->total_score,
             'average_score'  => $request->average_score,

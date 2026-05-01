@@ -17,9 +17,14 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
     {
         return [
             'username',
+            'nisn',
             'password',
             'nama',
             'kelas',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'nama_orang_tua',
+            'mapel',
             'total',
             'rata_rata',
             'ranking',
@@ -32,9 +37,14 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
         return [
             [
                 '18232411472',
+                '1234567890',
                 'Asthahannas18',
                 'Haris Bintang Lazuardi',
                 'XII-2',
+                'Magelang',
+                '2005-01-15',
+                'Bapak Haris',
+                'Matematika',
                 6119,
                 91.32,
                 1,
@@ -42,9 +52,14 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             ],
             [
                 '18232411473',
+                '1234567891',
                 'Asthahannas18',
                 'Budi Santoso',
                 'XII-3',
+                'Semarang',
+                '2005-02-20',
+                'Bapak Budi',
+                'Bahasa Indonesia',
                 5870,
                 88.45,
                 2,
@@ -55,7 +70,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
 
     public function styles(Worksheet $sheet)
     {
-        $lastColumn = 'H';
+        $lastColumn = 'M';
         $lastRow    = $sheet->getHighestRow();
 
         $sheet->getStyle("A1:{$lastColumn}1")->applyFromArray([
@@ -85,17 +100,17 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
         $sheet->getStyle("A2:A{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        $sheet->getStyle("D2:D{$lastRow}")
+        $sheet->getStyle("E2:E{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        $sheet->getStyle("E2:G{$lastRow}")
+        $sheet->getStyle("J2:L{$lastRow}")
             ->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         foreach (range(2, $lastRow) as $row) {
-            $status = strtolower(trim($sheet->getCell("H{$row}")->getValue()));
+            $status = strtolower(trim($sheet->getCell("M{$row}")->getValue()));
 
             if ($status === 'lulus') {
-                $sheet->getStyle("H{$row}")->applyFromArray([
+                $sheet->getStyle("M{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
@@ -105,7 +120,7 @@ class StudentsTemplateExport implements FromArray, WithHeadings, WithStyles, Sho
             }
 
             if ($status === 'tidak_lulus') {
-                $sheet->getStyle("H{$row}")->applyFromArray([
+                $sheet->getStyle("M{$row}")->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,

@@ -62,14 +62,20 @@ class StudentCheckController extends Controller
         return response()->json([
             'success' => true,
             'student' => [
-                'id'            => $student->id,
-                'nis'           => $student->nis,
-                'nama'          => $student->nama,
-                'kelas'         => $student->kelas,
-                'total_score'   => $student->total_score,
-                'average_score' => $student->average_score,
-                'ranking'       => $student->ranking,
-                'status'        => $student->status,
+                'id'              => $student->id,
+                'nis'             => $student->nis,
+                'nisn'            => $student->nisn,
+                'nama'            => $student->nama,
+                'kelas'           => $student->kelas,
+                'tempat_lahir'    => $student->tempat_lahir,
+                'tanggal_lahir'   => optional($student->tanggal_lahir)->format('Y-m-d'),
+                'nama_orang_tua'  => $student->nama_orang_tua,
+                'mapel'           => $student->mapel,
+
+                'total_score'     => $student->total_score,
+                'average_score'   => $student->average_score,
+                'ranking'         => $student->ranking,
+                'status'          => $student->status,
             ],
             'token' => $token,
         ]);
@@ -107,11 +113,15 @@ class StudentCheckController extends Controller
         }
 
         $data = [
-            'student'      => $student,
-            'announcement' => $announcement,
-            'issued_at'    => Carbon::now()->translatedFormat('d F Y'),
-            'year'         => Carbon::now()->year,
-            'school_year'  => (Carbon::now()->year - 1) . '/' . Carbon::now()->year,
+            'student'       => $student,
+            'school_year'   => '2025/2026',
+            'rapat_tanggal' => '4 Mei 2026',
+            'issued_at'     => '4 Mei 2026',
+            'kepala_sekolah' => 'Yanto Susanto, S.Pd., M.IP.',
+            'nip_kepsek'    => '...',
+            'logo_url' => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/logo.png'))),
+            'cap_url'  => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/cap.png'))),
+            'ttd_url'  => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/ttd.png'))),
         ];
 
         $pdf = Pdf::loadView('certificate', $data)
@@ -125,6 +135,6 @@ class StudentCheckController extends Controller
 
         $filename = 'Surat_Kelulusan_' . str_replace(' ', '_', $student->nama) . '_' . $student->nis . '.pdf';
 
-        return $pdf->download($filename);
+        return $pdf->stream($filename);
     }
 }

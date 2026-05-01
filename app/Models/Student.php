@@ -12,19 +12,20 @@ class Student extends Model
     protected $table = 'students';
     protected $fillable = [
         'nis',
+        'nisn',
+        'password',
         'nama',
         'kelas',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'nama_orang_tua',
+        'mapel',
         'total_score',
         'average_score',
         'ranking',
         'status',
-        'password'
     ];
 
-
-    protected $casts = [
-        'total_score' => 'float',
-    ];
 
     const STATUS_LULUS      = 'lulus';
     const STATUS_TIDAK_LULUS = 'tidak_lulus';

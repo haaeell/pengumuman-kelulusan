@@ -12,11 +12,20 @@ return new class extends Migration
             $table->id();
 
             $table->string('nis')->unique();
+            $table->string('nisn')->unique();
+
             $table->string('password');
             $table->string('nama');
             $table->string('kelas');
+
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+
+            $table->string('nama_orang_tua');
+            $table->string('mapel');
+
             $table->integer('total_score');
-            $table->decimal('average_score', 6, 2);
+            $table->decimal('average_score', 6, 3);
             $table->integer('ranking');
 
             $table->enum('status', [

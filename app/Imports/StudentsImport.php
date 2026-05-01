@@ -45,27 +45,39 @@ class StudentsImport implements
         };
 
         return new Student([
-            'nis'           => $row['username'],
-            'nama'          => $row['nama'],
-            'kelas'         => $row['kelas'],
-            'total_score'   => $row['total'],
-            'average_score' => $row['rata_rata'],
-            'ranking'       => $row['ranking'],
-            'password'      => $this->defaultPassword,
-            'status'        => $status,
+            'nis'            => $row['username'],
+            'nisn'           => $row['nisn'] ?? null,
+            'nama'           => $row['nama'],
+            'kelas'          => $row['kelas'],
+            'tempat_lahir'   => $row['tempat_lahir'] ?? null,
+            'tanggal_lahir'  => $row['tanggal_lahir'] ?? null,
+            'nama_orang_tua' => $row['nama_orang_tua'] ?? null,
+            'mapel'          => $row['mapel'] ?? null,
+
+            'total_score'    => $row['total'],
+            'average_score'  => $row['rata_rata'],
+            'ranking'        => $row['ranking'],
+            'password'       => $this->defaultPassword,
+            'status'         => $status,
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'username'  => 'required',
-            'nama'      => 'required',
-            'kelas'     => 'required',
-            'total'     => 'required|numeric',
-            'rata_rata' => 'required|numeric',
-            'ranking'   => 'required|integer',
-            'ket'       => 'required',
+            'username'        => 'required',
+            'nisn'            => 'required',
+            'nama'            => 'required',
+            'kelas'           => 'required',
+            'tempat_lahir'    => 'required',
+            'tanggal_lahir'   => 'required|date',
+            'nama_orang_tua'  => 'required',
+            'mapel'           => 'nullable|string',
+
+            'total'           => 'required|numeric',
+            'rata_rata'       => 'required|numeric',
+            'ranking'         => 'required|integer',
+            'ket'             => 'required',
         ];
     }
 }
