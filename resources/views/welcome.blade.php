@@ -304,7 +304,7 @@
                                     <i
                                         class="fa-solid fa-id-badge absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none"></i>
                                     <input type="text" id="inputNis" placeholder="Masukkan NIS kamu"
-                                        class="input-focus w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-sm text-gray-800 placeholder-gray-300 transition-all"
+                                        class="input-focus w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-base text-gray-800 placeholder-gray-300 transition-all"
                                         required autocomplete="off">
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                                     <i
                                         class="fa-solid fa-key absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-300 text-xs pointer-events-none"></i>
                                     <input type="password" id="inputPassword" placeholder="Masukkan password"
-                                        class="input-focus w-full pl-9 pr-10 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-sm text-gray-800 placeholder-gray-300 transition-all"
+                                        class="input-focus w-full pl-9 pr-10 py-2.5 rounded-xl border border-gray-200 bg-slate-50 text-base text-gray-800 placeholder-gray-300 transition-all"
                                         required>
                                     <button type="button" onclick="togglePw()"
                                         class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 text-xs transition-colors bg-transparent border-none cursor-pointer">
