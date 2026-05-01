@@ -135,6 +135,6 @@ class StudentCheckController extends Controller
 
         $filename = 'Surat_Kelulusan_' . str_replace(' ', '_', $student->nama) . '_' . $student->nis . '.pdf';
 
-        return $pdf->stream($filename);
+        return $pdf->download($filename);
     }
 }
