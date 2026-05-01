@@ -153,7 +153,7 @@
 
     <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center gap-3">
-            <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
+            <img src="{{ asset('images/logo.png') }}"
                 class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover flex-shrink-0" alt="Logo">
             <span class="text-xs sm:text-sm font-semibold text-gray-800 truncate">SMA Plus Asthahannas — Pengumuman
                 Kelulusan</span>

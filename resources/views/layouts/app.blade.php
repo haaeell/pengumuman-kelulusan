@@ -98,8 +98,7 @@
         class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-200 z-40 flex flex-col md:hidden">
         <div class="h-16 flex items-center justify-between px-5 border-b border-gray-200">
             <div class="flex items-center gap-3">
-                <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
-                    alt="Logo" class="h-8 w-8 rounded-lg">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-8 rounded-lg">
                 <span class="text-sm font-semibold text-gray-900">Pengumuman</span>
             </div>
             <button onclick="closeDrawer()" class="text-gray-400 hover:text-gray-600 text-lg">
@@ -145,8 +144,7 @@
         <aside class="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col">
             <div class="h-16 flex items-center px-6 border-b border-gray-200">
                 <div class="flex items-center gap-3">
-                    <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
-                        alt="Logo Sekolah" class="h-9 w-9 rounded-lg">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Sekolah" class="h-9 w-9 rounded-lg">
                     <span class="text-sm font-semibold text-gray-900">Pengumuman</span>
                 </div>
             </div>

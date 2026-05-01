@@ -53,7 +53,7 @@ class StudentCheckController extends Controller
         if (!$passwordValid) {
             return response()->json([
                 'success' => false,
-                'message' => 'Password salah. Password default adalah NIS kamu.',
+                'message' => 'Password salah.',
             ], 401);
         }
 

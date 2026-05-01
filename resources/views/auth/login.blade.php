@@ -90,8 +90,8 @@
         <div class="w-full md:w-1/2 p-8 sm:p-10 md:p-12 flex flex-col justify-center">
 
             <div class="flex items-center gap-3 mb-8">
-                <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
-                    class="w-9 h-9 rounded-xl object-cover flex-shrink-0" alt="Logo">
+                <img src="{{ asset('images/logo.png') }}" class="w-9 h-9 rounded-xl object-cover flex-shrink-0"
+                    alt="Logo">
                 <div>
                     <div class="text-xs font-semibold text-gray-800 leading-tight">SMA Plus Asthahannas</div>
                     <div class="text-[10px] text-gray-400 leading-tight">Pengumuman Kelulusan</div>
@@ -179,8 +179,7 @@
             <div class="relative z-10 text-center text-white">
                 <div
                     class="w-20 h-20 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
-                    <img src="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj"
-                        class="w-12 h-12 rounded-xl object-cover" alt="Logo">
+                    <img src="{{ asset('images/logo.png') }}" class="w-12 h-12 rounded-xl object-cover" alt="Logo">
                 </div>
 
                 <div
