@@ -9,19 +9,16 @@
     <meta name="description" content="Cek pengumuman kelulusan siswa secara online dengan cepat dan mudah.">
     <meta name="keywords" content="kelulusan, siswa, pengumuman, sekolah">
     <meta name="author" content="Sekolah">
-    <link rel="icon" type="image/png"
-        href="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <meta property="og:title" content="Pengumuman Kelulusan Siswa">
     <meta property="og:description" content="Cek hasil kelulusanmu sekarang juga secara online.">
-    <meta property="og:image"
-        content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+    <meta property="og:image" content="{{ asset('images/logo.png') }}">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="id_ID">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pengumuman Kelulusan Siswa">
     <meta name="twitter:description" content="Cek hasil kelulusanmu sekarang juga.">
-    <meta name="twitter:image"
-        content="https://yt3.googleusercontent.com/aqwnd_6PPBpG0PqWP1QMcBjJZX0GwVYQCmJ0_r0pdJPrAgiqjH3TaxhHCF9a-oHRbhk90Bpz=s900-c-k-c0x00ffffff-no-rj">
+    <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
     <meta name="theme-color" content="#4f46e5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
