@@ -546,8 +546,44 @@
 
                 const dlBtn = document.getElementById('downloadBtn');
                 if (lulus) {
-                    dlBtn.href = `/students/${s.id}/certificate?token=${data.token}`;
-                    dlBtn.onclick = null;
+                    dlBtn.href = '#';
+                    dlBtn.onclick = async (ev) => {
+                        ev.preventDefault();
+
+                        Swal.fire({
+                            title: 'Menyiapkan Surat...',
+                            html: 'Harap tunggu, dokumen sedang dibuat.',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            showConfirmButton: false,
+                            didOpen: () => { Swal.showLoading(); }
+                        });
+
+                        try {
+                            const certUrl = `/students/${s.id}/certificate?token=${data.token}`;
+                            const response = await fetch(certUrl);
+                            const blob = await response.blob();
+                            const url = URL.createObjectURL(blob);
+
+                            Swal.close();
+
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `Surat_Kelulusan_${s.nis}.pdf`;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        } catch (err) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Mengunduh',
+                                text: 'Terjadi kesalahan saat mengunduh surat. Coba lagi nanti.',
+                                confirmButtonColor: '#6366f1',
+                                customClass: { popup: 'rounded-2xl' }
+                            });
+                        }
+                    };
                 } else {
                     dlBtn.href = '#';
                     dlBtn.onclick = (ev) => {
