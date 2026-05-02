@@ -24,6 +24,7 @@ class Student extends Model
         'average_score',
         'ranking',
         'status',
+        'file_surat',
     ];
 
 

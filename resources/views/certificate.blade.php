@@ -96,7 +96,7 @@
         .td-kanan {
             width: 50%;
             text-align: left;
-            padding-left: 20px;
+            padding-left: 60px;
         }
 
         .ttd-kota {
@@ -117,15 +117,15 @@
         .ttd-gambar img.g-cap {
             position: absolute;
             width: 2.3in;
-            left: -400px;
-            top: -100px;
+            left: -200px;
+            top: -80px;
         }
 
         .ttd-gambar img.g-ttd {
             position: absolute;
             width: 2.8in;
-            left: -240px;
-            top: -290px;
+            left: -110px;
+            top: -110px;
         }
 
         .ttd-nama {
@@ -162,7 +162,7 @@
         </div>
 
         <br><br>
-        <div style="padding: 0 50px">
+        <div style="padding: 0 30px">
             <p class="pembuka">
                 Kepala Sekolah Menengah Atas Plus Astha Hannas Tahun Pelajaran {{ $school_year }}, dengan berdasarkan:
             </p>
@@ -246,6 +246,7 @@
                 </tr>
             </table>
 
+            <br><br>
             <div class="ket">
                 Keterangan:<br>
                 *) &nbsp;rata-rata nilai peserta didik yang sama dengan nilai yang akan ditulis dalam Transkrip Nilai

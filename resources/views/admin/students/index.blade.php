@@ -516,6 +516,25 @@
             border-radius: 4px;
         }
 
+        .btn-outline-blue {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid #3b82f6;
+            color: #3b82f6;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            background: transparent;
+            transition: background 0.15s;
+        }
+
+        .btn-outline-blue:hover {
+            background: #eff6ff;
+        }
+
         @media (max-width: 640px) {
             .form-grid {
                 grid-template-columns: 1fr !important;
@@ -561,19 +580,32 @@
                 <h2 class="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
                 <p class="text-xs text-gray-400 mt-0.5">Manajemen data, nilai & status kelulusan siswa</p>
             </div>
-            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
-                <button onclick="openModal('importModal')" class="btn-outline-green justify-center">
-                    <i class="fa-solid fa-file-excel text-[12px]"></i>Import Excel
-                </button>
-                <button onclick="resetData()" class="btn-outline-red justify-center">
-                    <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i>Reset Data
-                </button>
-                <form id="reset-form" method="POST" action="{{ route('students.reset') }}" class="hidden">
-                    @csrf @method('DELETE')
-                </form>
-                <button onclick="openModal('addModal')" class="btn-primary-indigo col-span-2 sm:col-span-1 justify-center">
-                    <i class="fa-solid fa-plus text-[11px]"></i> Tambah Siswa
-                </button>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">Manajemen data, nilai & status kelulusan siswa</p>
+                </div>
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+                    <button onclick="openModal('importModal')" class="btn-outline-green justify-center">
+                        <i class="fa-solid fa-file-excel text-[12px]"></i>Import Excel
+                    </button>
+                    <button onclick="resetData()" class="btn-outline-red justify-center">
+                        <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i>Reset Data
+                    </button>
+
+                    <button onclick="generateAllSurat()" class="btn-outline-blue justify-center" id="btn-generate-surat">
+                        <i class="fa-solid fa-file-pdf text-[12px]"></i>Generate Semua Surat
+                    </button>
+
+                    <form id="reset-form" method="POST" action="{{ route('students.reset') }}" class="hidden">
+                        @csrf @method('DELETE')
+                    </form>
+
+                    <button onclick="openModal('addModal')"
+                        class="btn-primary-indigo col-span-2 sm:col-span-1 justify-center">
+                        <i class="fa-solid fa-plus text-[11px]"></i> Tambah Siswa
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -642,6 +674,7 @@
                                 <th>Orang Tua</th>
                                 <th>Mapel</th>
                                 <th>Nilai</th>
+                                <th>SKL</th>
                                 <th>Status</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -685,6 +718,16 @@
                                         </div>
                                     </td>
                                     <td>
+                                        @if($s->file_surat)
+                                            <a href="{{ Storage::url($s->file_surat) }}" target="_blank"
+                                                class="text-blue-600 hover:underline text-xs">
+                                                <i class="fa-solid fa-file-pdf"></i> Unduh
+                                            </a>
+                                        @else
+                                            <span class="text-gray-400 text-xs">Belum digenerate</span>
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if ($s->isLulus())
                                             <span class="badge badge-lulus"><i class="fa-solid fa-circle-check"></i> LULUS</span>
                                         @else
@@ -693,6 +736,15 @@
                                     </td>
                                     <td>
                                         <div class="flex items-center justify-center gap-1.5">
+                                            <form id="generate-{{ $s->id }}" method="POST"
+                                                action="{{ route('students.generateSurat', $s->id) }}" class="hidden">
+                                                @csrf
+                                            </form>
+                                            <button onclick="generateSurat({{ $s->id }}, '{{ addslashes($s->nama) }}')"
+                                                class="action-btn" style="background:#eff6ff;color:#3b82f6"
+                                                title="{{ $s->file_surat ? 'Regenerate Surat' : 'Generate Surat' }}">
+                                                <i class="fa-solid fa-file-pdf text-[10px]"></i>
+                                            </button>
                                             <button onclick="openModal('edit{{ $s->id }}')" class="action-btn edit">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
@@ -977,8 +1029,8 @@
         $(document).ready(function () {
             $('#studentsTable').DataTable({
                 pageLength: 10,
-                order: [[0, 'asc']],
                 scrollX: false,
+                ordering: false,
                 language: {
                     search: '',
                     searchPlaceholder: 'Cari siswa...',
@@ -1042,6 +1094,120 @@
                 cancelButtonText: 'Batal',
                 customClass: { popup: 'rounded-2xl' }
             }).then(r => { if (r.isConfirmed) document.getElementById('hapus-' + id).submit(); });
+        }
+
+        function generateAllSurat() {
+            Swal.fire({
+                title: 'Generate Semua Surat?',
+                html: `<p style="font-size:13px;color:#64748b">
+                                Proses berjalan di background via SSE.<br>
+                                Progress tampil real-time, kamu bisa pantau dari halaman ini.
+                            </p>`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3b82f6',
+                cancelButtonColor: '#94a3b8',
+                confirmButtonText: 'Ya, Generate!',
+                cancelButtonText: 'Batal',
+                customClass: { popup: 'rounded-2xl' }
+            }).then(r => {
+                if (!r.isConfirmed) return;
+
+                // Tampilkan progress bar
+                Swal.fire({
+                    title: 'Sedang Memproses...',
+                    html: `
+                                    <div style="margin:12px 0">
+                                        <div style="background:#e0e7ff;border-radius:99px;height:10px;overflow:hidden">
+                                            <div id="swal-progress-bar"
+                                                 style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#3b82f6);
+                                                        border-radius:99px;transition:width .4s ease"></div>
+                                        </div>
+                                        <p id="swal-progress-text"
+                                           style="font-size:12px;color:#64748b;margin-top:8px">
+                                            Menginisialisasi...
+                                        </p>
+                                        <p style="font-size:11px;color:#94a3b8;margin-top:4px">
+                                            Jangan tutup halaman ini
+                                        </p>
+                                    </div>
+                                `,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                    customClass: { popup: 'rounded-2xl' }
+                });
+
+                // Buka koneksi SSE ke server
+                const source = new EventSource('{{ route('students.generateAllSurat') }}');
+
+                source.onmessage = function (e) {
+                    const data = JSON.parse(e.data);
+                    console.log('SSE:', data);
+
+
+                    if (data.status === 'done') {
+                        source.close();
+                        const msg = data.total === 0
+                            ? 'Semua siswa sudah memiliki surat kelulusan.'
+                            : `${data.total} surat kelulusan berhasil digenerate.`;
+
+                        Swal.fire({
+                            title: data.total === 0 ? 'Tidak Ada yang Diproses' : 'Selesai! 🎉',
+                            text: msg,
+                            icon: data.total === 0 ? 'info' : 'success',
+                            confirmButtonColor: '#6366f1',
+                            customClass: { popup: 'rounded-2xl' }
+                        }).then(() => location.reload());
+                        return;
+                    }
+
+                    if (data.status === 'running') {
+                        const pct = data.total > 0 ? Math.round(data.generated / data.total * 100) : 0;
+                        const bar = document.getElementById('swal-progress-bar');
+                        const text = document.getElementById('swal-progress-text');
+                        if (bar) bar.style.width = pct + '%';
+                        if (text) text.textContent = `${data.generated} / ${data.total} surat selesai (${pct}%)`;
+                    }
+                };
+
+                source.onerror = function () {
+                    source.close();
+                    Swal.fire({
+                        title: 'Koneksi Terputus',
+                        text: 'Proses mungkin masih berjalan. Refresh halaman untuk cek status.',
+                        icon: 'warning',
+                        confirmButtonColor: '#6366f1',
+                        customClass: { popup: 'rounded-2xl' }
+                    });
+                };
+            });
+        }
+
+        function generateSurat(id, nama) {
+            Swal.fire({
+                title: 'Generate Surat?',
+                html: `<p style="font-size:13px;color:#64748b">Generate surat kelulusan untuk <b>${nama}</b>?</p>`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3b82f6',
+                cancelButtonColor: '#94a3b8',
+                confirmButtonText: 'Ya, Generate!',
+                cancelButtonText: 'Batal',
+                customClass: { popup: 'rounded-2xl' }
+            }).then(r => {
+                if (r.isConfirmed) {
+                    Swal.fire({
+                        title: 'Memproses...',
+                        html: `<p style="font-size:13px;color:#64748b">Membuat surat untuk <b>${nama}</b>...</p>`,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        customClass: { popup: 'rounded-2xl' }
+                    });
+                    document.getElementById('generate-' + id).submit();
+                }
+            });
         }
     </script>
 @endpush

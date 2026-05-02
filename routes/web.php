@@ -22,6 +22,10 @@ Route::middleware('auth')->prefix('students')->group(function () {
     Route::delete('/reset', [StudentController::class, 'reset'])->name('students.reset');
     Route::get('/template', [StudentController::class, 'template'])->name('students.template');
     Route::post('/import', [StudentController::class, 'import'])->name('students.import');
+    Route::get('/generate-all-surat', [StudentController::class, 'generateAllSurat'])
+        ->name('students.generateAllSurat');
+    Route::post('/{id}/generate-surat', [StudentController::class, 'generateSurat'])
+        ->name('students.generateSurat');
     Route::get('/', [StudentController::class, 'index'])->name('students.index');
     Route::get('/{student}', [StudentController::class, 'show'])->name('students.show');
     Route::post('/', [StudentController::class, 'store'])->name('students.store');

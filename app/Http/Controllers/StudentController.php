@@ -6,7 +6,9 @@ use App\Imports\StudentsImport;
 use App\Models\Student;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
@@ -179,5 +181,113 @@ class StudentController extends Controller
         Student::truncate();
 
         return back()->with('success', 'Semua data siswa berhasil direset');
+    }
+
+    public function generateAllSurat()
+    {
+        return response()->stream(function () {
+
+            set_time_limit(0);
+            ini_set('memory_limit', '512M');
+
+            $sharedData = [
+                'school_year'    => '2025/2026',
+                'rapat_tanggal'  => '4 Mei 2026',
+                'issued_at'      => '4 Mei 2026',
+                'kepala_sekolah' => 'Yanto Susanto, S.Pd., M.IP.',
+                'nip_kepsek'     => '...',
+                'logo_url' => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/logo.png'))),
+                'cap_url'  => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/cap.png'))),
+                'ttd_url'  => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/ttd.png'))),
+                'kop'      => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/kop.jpeg'))),
+                'footer'   => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/footer.jpeg'))),
+            ];
+
+            $options = [
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => false,
+                'defaultFont'          => 'DejaVu Sans',
+                'dpi'                  => 96,
+            ];
+
+            $total     = Student::whereNull('file_surat')->count();
+            $generated = 0;
+
+            // Kirim sinyal start
+            echo "data: " . json_encode(['status' => 'running', 'generated' => 0, 'total' => $total]) . "\n\n";
+            ob_flush();
+            flush();
+
+            Student::whereNull('file_surat')->chunk(50, function ($students) use ($sharedData, $options, $total, &$generated) {
+                foreach ($students as $student) {
+                    $data = array_merge($sharedData, ['student' => $student]);
+
+                    $pdf = Pdf::loadView('certificate', $data)
+                        ->setPaper('a4', 'portrait')
+                        ->setOptions($options);
+
+                    $filename = 'Surat_Kelulusan_' . str_replace(' ', '_', $student->nama) . '_' . $student->nis . '.pdf';
+                    $path     = 'surat/' . $filename;
+
+                    Storage::disk('public')->put($path, $pdf->output());
+                    $student->update(['file_surat' => $path]);
+                    $generated++;
+
+                    // Push progress ke browser setiap 1 siswa
+                    echo "data: " . json_encode([
+                        'status'    => 'running',
+                        'generated' => $generated,
+                        'total'     => $total,
+                    ]) . "\n\n";
+                    ob_flush();
+                    flush();
+                }
+            });
+
+            // Selesai
+            echo "data: " . json_encode(['status' => 'done', 'total' => $generated]) . "\n\n";
+            ob_flush();
+            flush();
+        }, 200, [
+            'Content-Type'      => 'text/event-stream',
+            'Cache-Control'     => 'no-cache',
+            'X-Accel-Buffering' => 'no',
+        ]);
+    }
+
+    public function generateSurat($id)
+    {
+        $student = Student::findOrFail($id);
+
+        $data = [
+            'student'        => $student,
+            'school_year'    => '2025/2026',
+            'rapat_tanggal'  => '4 Mei 2026',
+            'issued_at'      => '4 Mei 2026',
+            'kepala_sekolah' => 'Yanto Susanto, S.Pd., M.IP.',
+            'nip_kepsek'     => '...',
+            'logo_url' => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/logo.png'))),
+            'cap_url'  => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/cap.png'))),
+            'ttd_url'  => 'data:image/png;base64,'  . base64_encode(file_get_contents(public_path('images/ttd.png'))),
+            'kop'      => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/kop.jpeg'))),
+            'footer'   => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/footer.jpeg'))),
+        ];
+
+        $pdf = Pdf::loadView('certificate', $data)
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => false,
+                'defaultFont'          => 'DejaVu Sans',
+                'dpi'                  => 96,
+            ]);
+
+        $filename = 'Surat_Kelulusan_' . str_replace(' ', '_', $student->nama) . '_' . $student->nis . '.pdf';
+        $path     = 'surat/' . $filename;
+
+        Storage::disk('public')->put($path, $pdf->output());
+        $student->update(['file_surat' => $path]);
+
+        return back()->with('success', "Surat kelulusan {$student->nama} berhasil digenerate.");
     }
 }

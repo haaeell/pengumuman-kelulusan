@@ -545,45 +545,30 @@
                     ? `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-check text-[10px]"></i> LULUS</span>`
                     : `<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-[10px] font-bold tracking-widest uppercase"><i class="fa-solid fa-circle-xmark text-[10px]"></i> TIDAK LULUS</span>`;
 
-                const dlBtn = document.getElementById('downloadBtn');
                 if (lulus) {
                     dlBtn.href = '#';
                     dlBtn.onclick = async (ev) => {
                         ev.preventDefault();
 
-                        Swal.fire({
-                            title: 'Menyiapkan Surat...',
-                            html: 'Harap tunggu, dokumen sedang dibuat.',
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            showConfirmButton: false,
-                            didOpen: () => { Swal.showLoading(); }
-                        });
-
-                        try {
-                            const certUrl = `/students/${s.id}/certificate?token=${data.token}`;
-                            const response = await fetch(certUrl);
-                            const blob = await response.blob();
-                            const url = URL.createObjectURL(blob);
-
-                            Swal.close();
-
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `Surat_Kelulusan_${s.nis}.pdf`;
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
-                            URL.revokeObjectURL(url);
-                        } catch (err) {
+                        if (!s.file_surat) {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal Mengunduh',
-                                text: 'Terjadi kesalahan saat mengunduh surat. Coba lagi nanti.',
+                                icon: 'warning',
+                                title: 'Surat Belum Digenerate',
+                                text: 'Surat kelulusan belum dibuat. Hubungi admin untuk generate surat terlebih dahulu.',
                                 confirmButtonColor: '#6366f1',
                                 customClass: { popup: 'rounded-2xl' }
                             });
+                            return;
                         }
+
+                        const fileUrl = `/storage/${s.file_surat}`;
+                        const a = document.createElement('a');
+                        a.href = fileUrl;
+                        a.download = `Surat_Kelulusan_${s.nis}.pdf`;
+                        a.target = '_blank';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
                     };
                 } else {
                     dlBtn.href = '#';
@@ -598,7 +583,6 @@
                         });
                     };
                 }
-
                 if (lulus) {
                     playConfetti();
                     document.getElementById('resultSection').classList.add('lulus-glow');

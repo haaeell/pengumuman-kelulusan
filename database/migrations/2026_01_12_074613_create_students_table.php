@@ -28,6 +28,8 @@ return new class extends Migration
             $table->decimal('average_score', 6, 3);
             $table->integer('ranking');
 
+            $table->string('file_surat')->nullable();
+
             $table->enum('status', [
                 'lulus',
                 'tidak_lulus',
