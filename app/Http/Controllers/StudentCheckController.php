@@ -76,6 +76,7 @@ class StudentCheckController extends Controller
                 'average_score'   => $student->average_score,
                 'ranking'         => $student->ranking,
                 'status'          => $student->status,
+                'file_surat'      => $student->file_surat,
             ],
             'token' => $token,
         ]);

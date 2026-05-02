@@ -721,7 +721,7 @@
                                         @if($s->file_surat)
                                             <a href="{{ Storage::url($s->file_surat) }}" target="_blank"
                                                 class="text-blue-600 hover:underline text-xs">
-                                                <i class="fa-solid fa-file-pdf"></i> Unduh
+                                                <i class="fa-solid fa-file-pdf"></i> Lihat
                                             </a>
                                         @else
                                             <span class="text-gray-400 text-xs">Belum digenerate</span>
@@ -1100,9 +1100,9 @@
             Swal.fire({
                 title: 'Generate Semua Surat?',
                 html: `<p style="font-size:13px;color:#64748b">
-                                Proses berjalan di background via SSE.<br>
-                                Progress tampil real-time, kamu bisa pantau dari halaman ini.
-                            </p>`,
+                                    Proses berjalan di background via SSE.<br>
+                                    Progress tampil real-time, kamu bisa pantau dari halaman ini.
+                                </p>`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3b82f6',
@@ -1117,21 +1117,21 @@
                 Swal.fire({
                     title: 'Sedang Memproses...',
                     html: `
-                                    <div style="margin:12px 0">
-                                        <div style="background:#e0e7ff;border-radius:99px;height:10px;overflow:hidden">
-                                            <div id="swal-progress-bar"
-                                                 style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#3b82f6);
-                                                        border-radius:99px;transition:width .4s ease"></div>
+                                        <div style="margin:12px 0">
+                                            <div style="background:#e0e7ff;border-radius:99px;height:10px;overflow:hidden">
+                                                <div id="swal-progress-bar"
+                                                     style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#3b82f6);
+                                                            border-radius:99px;transition:width .4s ease"></div>
+                                            </div>
+                                            <p id="swal-progress-text"
+                                               style="font-size:12px;color:#64748b;margin-top:8px">
+                                                Menginisialisasi...
+                                            </p>
+                                            <p style="font-size:11px;color:#94a3b8;margin-top:4px">
+                                                Jangan tutup halaman ini
+                                            </p>
                                         </div>
-                                        <p id="swal-progress-text"
-                                           style="font-size:12px;color:#64748b;margin-top:8px">
-                                            Menginisialisasi...
-                                        </p>
-                                        <p style="font-size:11px;color:#94a3b8;margin-top:4px">
-                                            Jangan tutup halaman ini
-                                        </p>
-                                    </div>
-                                `,
+                                    `,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showConfirmButton: false,

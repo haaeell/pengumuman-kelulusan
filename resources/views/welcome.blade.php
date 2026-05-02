@@ -504,9 +504,7 @@
                 }
 
                 const s = data.student;
-                console.log('tanggal_lahir:', s.tanggal_lahir);
-                console.log('tempat_lahir:', s.tempat_lahir);
-                console.log('student full:', s);
+                const dlBtn = document.getElementById('downloadBtn');
 
                 document.getElementById('resAvatar').textContent = (s.nama || '?').charAt(0).toUpperCase();
                 document.getElementById('resNama').textContent = s.nama;
