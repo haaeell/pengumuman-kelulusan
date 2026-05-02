@@ -122,6 +122,8 @@ class StudentCheckController extends Controller
             'logo_url' => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/logo.png'))),
             'cap_url'  => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/cap.png'))),
             'ttd_url'  => 'data:image/png;base64,' . base64_encode(file_get_contents(public_path('images/ttd.png'))),
+            'kop'    => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/kop.jpeg'))),
+            'footer' => 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/footer.jpeg'))),
         ];
 
         $pdf = Pdf::loadView('certificate', $data)
