@@ -332,7 +332,8 @@
                         </form>
                     </div>
                     <div class="px-5 sm:px-7 py-4 bg-slate-50 border-t border-gray-100 mt-5">
-                        <p class="text-center text-xs text-gray-400 leading-relaxed">Hubungi guru BK jika ada kendala.</p>
+                        <p class="text-center text-xs text-gray-400 leading-relaxed">Hubungi Tim Pengajaran jika ada
+                            kendala.</p>
                     </div>
                 </div>
             @endif
