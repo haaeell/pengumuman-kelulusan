@@ -580,32 +580,25 @@
                 <h2 class="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
                 <p class="text-xs text-gray-400 mt-0.5">Manajemen data, nilai & status kelulusan siswa</p>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                    <h2 class="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">Data Siswa</h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Manajemen data, nilai & status kelulusan siswa</p>
-                </div>
-                <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
-                    <button onclick="openModal('importModal')" class="btn-outline-green justify-center">
-                        <i class="fa-solid fa-file-excel text-[12px]"></i>Import Excel
-                    </button>
-                    <button onclick="resetData()" class="btn-outline-red justify-center">
-                        <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i>Reset Data
-                    </button>
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+                <button onclick="openModal('importModal')" class="btn-outline-green justify-center">
+                    <i class="fa-solid fa-file-excel text-[12px]"></i>Import Excel
+                </button>
+                <button onclick="resetData()" class="btn-outline-red justify-center">
+                    <i class="fa-solid fa-arrow-rotate-left text-[12px]"></i>Reset Data
+                </button>
 
-                    <button onclick="generateAllSurat()" class="btn-outline-blue justify-center" id="btn-generate-surat">
-                        <i class="fa-solid fa-file-pdf text-[12px]"></i>Generate Semua Surat
-                    </button>
+                <button onclick="generateAllSurat()" class="btn-outline-blue justify-center" id="btn-generate-surat">
+                    <i class="fa-solid fa-file-pdf text-[12px]"></i>Generate Semua Surat
+                </button>
 
-                    <form id="reset-form" method="POST" action="{{ route('students.reset') }}" class="hidden">
-                        @csrf @method('DELETE')
-                    </form>
+                <form id="reset-form" method="POST" action="{{ route('students.reset') }}" class="hidden">
+                    @csrf @method('DELETE')
+                </form>
 
-                    <button onclick="openModal('addModal')"
-                        class="btn-primary-indigo col-span-2 sm:col-span-1 justify-center">
-                        <i class="fa-solid fa-plus text-[11px]"></i> Tambah Siswa
-                    </button>
-                </div>
+                <button onclick="openModal('addModal')" class="btn-primary-indigo col-span-2 sm:col-span-1 justify-center">
+                    <i class="fa-solid fa-plus text-[11px]"></i> Tambah Siswa
+                </button>
             </div>
         </div>
 
@@ -1100,9 +1093,9 @@
             Swal.fire({
                 title: 'Generate Semua Surat?',
                 html: `<p style="font-size:13px;color:#64748b">
-                                    Proses berjalan di background via SSE.<br>
-                                    Progress tampil real-time, kamu bisa pantau dari halaman ini.
-                                </p>`,
+                                        Proses berjalan di background via SSE.<br>
+                                        Progress tampil real-time, kamu bisa pantau dari halaman ini.
+                                    </p>`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3b82f6',
@@ -1117,21 +1110,21 @@
                 Swal.fire({
                     title: 'Sedang Memproses...',
                     html: `
-                                        <div style="margin:12px 0">
-                                            <div style="background:#e0e7ff;border-radius:99px;height:10px;overflow:hidden">
-                                                <div id="swal-progress-bar"
-                                                     style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#3b82f6);
-                                                            border-radius:99px;transition:width .4s ease"></div>
+                                            <div style="margin:12px 0">
+                                                <div style="background:#e0e7ff;border-radius:99px;height:10px;overflow:hidden">
+                                                    <div id="swal-progress-bar"
+                                                         style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#3b82f6);
+                                                                border-radius:99px;transition:width .4s ease"></div>
+                                                </div>
+                                                <p id="swal-progress-text"
+                                                   style="font-size:12px;color:#64748b;margin-top:8px">
+                                                    Menginisialisasi...
+                                                </p>
+                                                <p style="font-size:11px;color:#94a3b8;margin-top:4px">
+                                                    Jangan tutup halaman ini
+                                                </p>
                                             </div>
-                                            <p id="swal-progress-text"
-                                               style="font-size:12px;color:#64748b;margin-top:8px">
-                                                Menginisialisasi...
-                                            </p>
-                                            <p style="font-size:11px;color:#94a3b8;margin-top:4px">
-                                                Jangan tutup halaman ini
-                                            </p>
-                                        </div>
-                                    `,
+                                        `,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showConfirmButton: false,
