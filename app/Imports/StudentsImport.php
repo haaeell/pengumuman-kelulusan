@@ -70,7 +70,7 @@ class StudentsImport implements
             'nama'            => 'required',
             'kelas'           => 'required',
             'tempat_lahir'    => 'required',
-            'tanggal_lahir'   => 'required|date',
+            'tanggal_lahir'   => 'required',
             'nama_orang_tua'  => 'required',
             'mapel'           => 'nullable|string',
 
