@@ -41,6 +41,7 @@ class StudentsImport implements
         return [
             ...$row,
             'tanggal_lahir' => $tanggal,
+            'password'      => !empty($row['password']) ? (string) $row['password'] : null,
         ];
     }
 
@@ -104,7 +105,7 @@ class StudentsImport implements
             'rata_rata'      => 'required|numeric',
             'ranking'        => 'required|integer',
             'ket'            => 'required',
-            'password'       => 'nullable|string',
+            'password' => 'nullable',
         ];
     }
 }
