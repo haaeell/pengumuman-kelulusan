@@ -213,7 +213,7 @@
                         <td class="b-label">Mapel Pilihan</td>
                         <td class="b-sep">:</td>
                         <td class="b-val">
-                            {{ $student->mapel_pilihan ?? 'Matematika Tingkat Lanjut, Fisika, Kimia, dan Biologi' }}
+                            {{ $student->mapel ?? 'Matematika Tingkat Lanjut, Fisika, Kimia, dan Biologi' }}
                         </td>
                     </tr>
                     <tr>
