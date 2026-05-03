@@ -9,7 +9,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 
@@ -18,22 +17,9 @@ class StudentsImport implements
     WithHeadingRow,
     WithValidation,
     WithMapping,
-    WithChunkReading,
-    WithBatchInserts
+    WithChunkReading
 {
-    protected string $defaultPassword;
-
-    public function __construct()
-    {
-        $this->defaultPassword = Hash::make('Asthahannas18');
-    }
-
     public function chunkSize(): int
-    {
-        return 500;
-    }
-
-    public function batchSize(): int
     {
         return 500;
     }
@@ -68,8 +54,10 @@ class StudentsImport implements
             default => 'lulus'
         };
 
-        return new Student([
-            'nis'            => $row['nis'],
+        $existing = Student::where('nis', $row['nis'])->first();
+        $rowPassword = trim($row['password'] ?? '');
+
+        $data = [
             'nisn'           => $row['nisn'] ?? null,
             'nama'           => $row['nama'],
             'kelas'          => $row['kelas'],
@@ -80,9 +68,25 @@ class StudentsImport implements
             'total_score'    => $row['total'],
             'average_score'  => $row['rata_rata'],
             'ranking'        => $row['ranking'],
-            'password'       => $this->defaultPassword,
             'status'         => $status,
-        ]);
+        ];
+
+        if ($existing) {
+            if (!empty($rowPassword)) {
+                $data['password'] = Hash::make($rowPassword);
+            }
+        } else {
+            if (!empty($rowPassword)) {
+                $data['password'] = Hash::make($rowPassword);
+            }
+        }
+
+        Student::updateOrCreate(
+            ['nis' => $row['nis']],
+            $data
+        );
+
+        return null;
     }
 
     public function rules(): array
@@ -100,6 +104,7 @@ class StudentsImport implements
             'rata_rata'      => 'required|numeric',
             'ranking'        => 'required|integer',
             'ket'            => 'required',
+            'password'       => 'nullable|string',
         ];
     }
 }
